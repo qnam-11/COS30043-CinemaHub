@@ -1,0 +1,132 @@
+[
+    {
+        "id": 1,
+        "title": "The Shawshank Redemption",
+        "year": 1994,
+        "genre": [
+            "Drama"
+        ],
+        "director": "Frank Darabont",
+        "rating": 9.3,
+        "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+        "poster": "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=300&h=450&fit=crop",
+        "duration": "142 min",
+        "likes": 245,
+        "addedBy": "admin"
+    },
+    {
+        "id": 2,
+        "title": "The Godfather",
+        "year": 1972,
+        "genre": [
+            "Crime",
+            "Drama"
+        ],
+        "director": "Francis Ford Coppola",
+        "rating": 9.2,
+        "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+        "poster": "https://images.unsplash.com/photo-1611095564665-56bd8129e5a1?w=300&h=450&fit=crop",
+        "duration": "175 min",
+        "likes": 198,
+        "addedBy": "admin"
+    },
+    {
+        "id": 3,
+        "title": "The Dark Knight",
+        "year": 2008,
+        "genre": [
+            "Action",
+            "Crime",
+            "Drama"
+        ],
+        "director": "Christopher Nolan",
+        "rating": 9.0,
+        "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests.",
+        "poster": "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=300&h=450&fit=crop",
+        "duration": "152 min",
+        "likes": 312,
+        "addedBy": "admin"
+    },
+    {
+        "id": 4,
+        "title": "Pulp Fiction",
+        "year": 1994,
+        "genre": [
+            "Crime",
+            "Drama"
+        ],
+        "director": "Quentin Tarantino",
+        "rating": 8.9,
+        "description": "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption.",
+        "poster": "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=300&h=450&fit=crop",
+        "duration": "154 min",
+        "likes": 167,
+        "addedBy": "admin"
+    },
+    {
+        "id": 5,
+        "title": "Inception",
+        "year": 2010,
+        "genre": [
+            "Action",
+            "Sci-Fi",
+            "Thriller"
+        ],
+        "director": "Christopher Nolan",
+        "rating": 8.8,
+        "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea.",
+        "poster": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=300&h=450&fit=crop",
+        "duration": "148 min",
+        "likes": 289,
+        "addedBy": "admin"
+    },
+    {
+        "id": 6,
+        "title": "The Matrix",
+        "year": 1999,
+        "genre": [
+            "Action",
+            "Sci-Fi"
+        ],
+        "director": "Lana Wachowski, Lilly Wachowski",
+        "rating": 8.7,
+        "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+        "poster": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=300&h=450&fit=crop",
+        "duration": "136 min",
+        "likes": 221,
+        "addedBy": "john_doe"
+    },
+    {
+        "id": 7,
+        "title": "Interstellar",
+        "year": 2014,
+        "genre": [
+            "Adventure",
+            "Drama",
+            "Sci-Fi"
+        ],
+        "director": "Christopher Nolan",
+        "rating": 8.6,
+        "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+        "poster": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&h=450&fit=crop",
+        "duration": "169 min",
+        "likes": 203,
+        "addedBy": "john_doe"
+    },
+    {
+        "id": 8,
+        "title": "Parasite",
+        "year": 2019,
+        "genre": [
+            "Drama",
+            "Thriller"
+        ],
+        "director": "Bong Joon Ho",
+        "rating": 8.6,
+        "description": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+        "poster": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=300&h=450&fit=crop",
+        "duration": "132 min",
+        "likes": 178,
+        "addedBy": "admin"
+    }
+]

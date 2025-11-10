@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "username": "admin",
+        "password": "admin123",
+        "firstName": "Admin",
+        "lastName": "User",
+        "email": "admin@cinemahub.com",
+        "role": "admin"
+    },
+    {
+        "id": 2,
+        "username": "john_doe",
+        "password": "password123",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john@example.com",
+        "role": "user"
+    }
+]
