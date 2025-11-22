@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "CinemaHub Central",
+        "location": "Melbourne CBD",
+        "address": "123 Collins Street, Melbourne VIC 3000",
+        "facilities": [
+            "IMAX",
+            "3D",
+            "Dolby Atmos",
+            "Recliner Seats"
+        ],
+        "screens": 8
+    },
+    {
+        "id": 2,
+        "name": "CinemaHub North",
+        "location": "Preston",
+        "address": "456 High Street, Preston VIC 3072",
+        "facilities": [
+            "3D",
+            "Premium Seats",
+            "Dolby Atmos"
+        ],
+        "screens": 6
+    },
+    {
+        "id": 3,
+        "name": "CinemaHub East",
+        "location": "Box Hill",
+        "address": "789 Whitehorse Road, Box Hill VIC 3128",
+        "facilities": [
+            "2D",
+            "3D",
+            "Premium Seats"
+        ],
+        "screens": 5
+    },
+    {
+        "id": 4,
+        "name": "CinemaHub South",
+        "location": "Chadstone",
+        "address": "1341 Dandenong Road, Chadstone VIC 3148",
+        "facilities": [
+            "IMAX",
+            "3D",
+            "4DX",
+            "Gold Class"
+        ],
+        "screens": 10
+    },
+    {
+        "id": 5,
+        "name": "CinemaHub West",
+        "location": "Footscray",
+        "address": "234 Nicholson Street, Footscray VIC 3011",
+        "facilities": [
+            "2D",
+            "3D",
+            "Dolby Atmos"
+        ],
+        "screens": 4
+    }
+]

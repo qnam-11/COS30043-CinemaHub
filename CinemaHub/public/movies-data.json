@@ -9,10 +9,22 @@
         "director": "Frank Darabont",
         "rating": 9.3,
         "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+        "synopsis": "Andy Dufresne, a successful banker, is arrested for the murders of his wife and her lover, and is sentenced to life imprisonment at the Shawshank prison. He becomes the most unconventional prisoner.",
+        "cast": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler"
+        ],
+        "trailer": "https://www.youtube.com/embed/6hB3S9bIaco",
+        "language": [
+            "English"
+        ],
         "poster": "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=300&h=450&fit=crop",
         "duration": "142 min",
         "likes": 245,
-        "addedBy": "admin"
+        "addedBy": "admin",
+        "reviews": []
     },
     {
         "id": 2,
@@ -25,10 +37,23 @@
         "director": "Francis Ford Coppola",
         "rating": 9.2,
         "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+        "synopsis": "The story spans the years from 1945 to 1955 and chronicles the fictional Italian-American Corleone crime family. When organized crime family patriarch Vito Corleone barely survives an attempt on his life, his youngest son, Michael, steps in to take care of the would-be killers.",
+        "cast": [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan",
+            "Robert Duvall"
+        ],
+        "trailer": "https://www.youtube.com/embed/sY1S34973zA",
+        "language": [
+            "English",
+            "Italian"
+        ],
         "poster": "https://images.unsplash.com/photo-1611095564665-56bd8129e5a1?w=300&h=450&fit=crop",
         "duration": "175 min",
         "likes": 198,
-        "addedBy": "admin"
+        "addedBy": "admin",
+        "reviews": []
     },
     {
         "id": 3,
@@ -42,10 +67,22 @@
         "director": "Christopher Nolan",
         "rating": 9.0,
         "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests.",
+        "synopsis": "Set within a year after the events of Batman Begins, Batman, Lieutenant James Gordon, and new District Attorney Harvey Dent successfully begin to round up the criminals that plague Gotham City. However, a mysterious and sadistic criminal mastermind known as the Joker appears and throws Gotham into anarchy.",
+        "cast": [
+            "Christian Bale",
+            "Heath Ledger",
+            "Aaron Eckhart",
+            "Michael Caine"
+        ],
+        "trailer": "https://www.youtube.com/embed/EXeTwQWrcwY",
+        "language": [
+            "English"
+        ],
         "poster": "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=300&h=450&fit=crop",
         "duration": "152 min",
         "likes": 312,
-        "addedBy": "admin"
+        "addedBy": "admin",
+        "reviews": []
     },
     {
         "id": 4,
@@ -58,10 +95,22 @@
         "director": "Quentin Tarantino",
         "rating": 8.9,
         "description": "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption.",
+        "synopsis": "A pair of low-rent hit men, Vincent Vega and Jules Winnfield, are sent out to collect a stolen briefcase for their mob boss employer, Marsellus Wallace. Having proven himself worthy, Wallace then entrusts Vincent to entertain his wife, Mia, while he's out of town.",
+        "cast": [
+            "John Travolta",
+            "Samuel L. Jackson",
+            "Uma Thurman",
+            "Bruce Willis"
+        ],
+        "trailer": "https://www.youtube.com/embed/s7EdQ4FqbhY",
+        "language": [
+            "English"
+        ],
         "poster": "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=300&h=450&fit=crop",
         "duration": "154 min",
         "likes": 167,
-        "addedBy": "admin"
+        "addedBy": "admin",
+        "reviews": []
     },
     {
         "id": 5,
@@ -75,10 +124,22 @@
         "director": "Christopher Nolan",
         "rating": 8.8,
         "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea.",
+        "synopsis": "Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, stealing valuable secrets from deep within the subconscious during the dream state. Cobb's rare ability has made him a coveted player in this treacherous new world of corporate espionage, but it has also cost him everything he loves.",
+        "cast": [
+            "Leonardo DiCaprio",
+            "Joseph Gordon-Levitt",
+            "Ellen Page",
+            "Tom Hardy"
+        ],
+        "trailer": "https://www.youtube.com/embed/YoHD9XEInc0",
+        "language": [
+            "English"
+        ],
         "poster": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=300&h=450&fit=crop",
         "duration": "148 min",
         "likes": 289,
-        "addedBy": "admin"
+        "addedBy": "admin",
+        "reviews": []
     },
     {
         "id": 6,
@@ -91,10 +152,22 @@
         "director": "Lana Wachowski, Lilly Wachowski",
         "rating": 8.7,
         "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+        "synopsis": "Thomas A. Anderson is a man living two lives. By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination. Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government.",
+        "cast": [
+            "Keanu Reeves",
+            "Laurence Fishburne",
+            "Carrie-Anne Moss",
+            "Hugo Weaving"
+        ],
+        "trailer": "https://www.youtube.com/embed/vKQi3bBA1y8",
+        "language": [
+            "English"
+        ],
         "poster": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=300&h=450&fit=crop",
         "duration": "136 min",
         "likes": 221,
-        "addedBy": "john_doe"
+        "addedBy": "john_doe",
+        "reviews": []
     },
     {
         "id": 7,
@@ -108,10 +181,22 @@
         "director": "Christopher Nolan",
         "rating": 8.6,
         "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+        "synopsis": "Earth's future has been riddled by disasters, famines, and droughts. There is only one way to ensure mankind's survival: Interstellar travel. A newly discovered wormhole in the far reaches of our solar system allows a team of astronauts to go where no man has gone before, a planet that may have the right environment to sustain human life.",
+        "cast": [
+            "Matthew McConaughey",
+            "Anne Hathaway",
+            "Jessica Chastain",
+            "Michael Caine"
+        ],
+        "trailer": "https://www.youtube.com/embed/zSWdZVtXT7E",
+        "language": [
+            "English"
+        ],
         "poster": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&h=450&fit=crop",
         "duration": "169 min",
         "likes": 203,
-        "addedBy": "john_doe"
+        "addedBy": "john_doe",
+        "reviews": []
     },
     {
         "id": 8,
@@ -124,9 +209,21 @@
         "director": "Bong Joon Ho",
         "rating": 8.6,
         "description": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+        "synopsis": "The Kims - mother and father Chung-sook and Ki-taek, and their young adult offspring, son Ki-woo and daughter Ki-jung - are a poor family living in a shabby and cramped half basement apartment in a busy lower working class commercial district of Seoul. All unemployed, Ki-taek is the most motivated to find work, if only for his parents' sake, Ki-woo who often schemes in ways which some would consider devious.",
+        "cast": [
+            "Song Kang-ho",
+            "Lee Sun-kyun",
+            "Cho Yeo-jeong",
+            "Choi Woo-shik"
+        ],
+        "trailer": "https://www.youtube.com/embed/5xH0HfJHsaY",
+        "language": [
+            "Korean"
+        ],
         "poster": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=300&h=450&fit=crop",
         "duration": "132 min",
         "likes": 178,
-        "addedBy": "admin"
+        "addedBy": "admin",
+        "reviews": []
     }
 ]

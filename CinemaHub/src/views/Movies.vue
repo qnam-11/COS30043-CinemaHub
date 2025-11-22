@@ -119,7 +119,7 @@
             class="col-lg-3 col-md-4 col-sm-6 col-12"
           >
             <div class="movie-card">
-              <div class="movie-poster-container">
+              <div class="movie-poster-container" @click="viewMovieDetails(movie)">
                 <img
                   :src="movie.poster"
                   :alt="movie.title"
@@ -127,7 +127,6 @@
                 />
                 <div class="movie-overlay">
                   <button
-                    @click="viewMovieDetails(movie)"
                     class="btn btn-sm btn-light"
                   >
                     View Details
@@ -550,8 +549,7 @@ export default {
       this.movieForm = this.getEmptyMovieForm()
     },
     viewMovieDetails(movie) {
-      // This could navigate to a detailed movie page
-      alert(`Movie Details:\n\nTitle: ${movie.title}\nDirector: ${movie.director}\nYear: ${movie.year}\nRating: ${movie.rating}\n\n${movie.description}`)
+      this.$router.push(`/movies/${movie.id}`)
     }
   },
   mounted() {
@@ -587,6 +585,14 @@ export default {
   padding: 2rem;
   border-radius: 16px;
   border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.search-section .form-control::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.search-section .text-muted {
+  color: var(--text-muted) !important;
 }
 
 .form-label {

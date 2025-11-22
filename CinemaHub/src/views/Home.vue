@@ -159,7 +159,8 @@ export default {
 }
 
 .hero-buttons .btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.959);
+  box-shadow: 0 10px 25px rgba(218, 203, 249, 0.2);
   transform: translateY(-2px);
 }
 

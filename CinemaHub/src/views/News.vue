@@ -319,6 +319,10 @@ export default {
   color: var(--text-light);
 }
 
+.search-section .text-muted {
+  color: var(--text-muted) !important;
+}
+
 /* News Cards */
 .news-card {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(16, 185, 129, 0.05));

@@ -305,6 +305,10 @@ export default {
   color: var(--text-muted);
 }
 
+.image-selection-section .text-muted {
+  color: var(--text-muted) !important;
+}
+
 /* Welcome Message */
 .welcome-card {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(16, 185, 129, 0.1));

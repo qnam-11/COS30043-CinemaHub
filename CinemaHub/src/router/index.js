@@ -6,6 +6,10 @@ import About from '../views/About.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Movies from '../views/Movies.vue'
+import MovieDetail from '../views/MovieDetail.vue'
+import SeatSelection from '../views/SeatSelection.vue'
+import Checkout from '../views/Checkout.vue'
+import Profile from '../views/Profile.vue'
 
 const routes = [
     {
@@ -39,6 +43,29 @@ const routes = [
         path: '/movies',
         name: 'Movies',
         component: Movies
+    },
+    {
+        path: '/movies/:id',
+        name: 'MovieDetail',
+        component: MovieDetail
+    },
+    {
+        path: '/seat-selection/:showtimeId',
+        name: 'SeatSelection',
+        component: SeatSelection,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/checkout',
+        name: 'Checkout',
+        component: Checkout,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile,
+        meta: { requiresAuth: true }
     }
 ]
 
