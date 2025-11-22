@@ -39,6 +39,11 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
+                  <router-link to="/profile" class="dropdown-item">
+                    <span class="me-2">👤</span> Profile
+                  </router-link>
+                </li>
+                <li>
                   <a class="dropdown-item" href="#" @click.prevent="handleLogout">
                     <span class="me-2">🚪</span> Logout
                   </a>
