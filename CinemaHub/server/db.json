@@ -30,10 +30,20 @@
       "provider": "google",
       "googleId": "100040916191852445279",
       "role": "user"
+    },
+    {
+      "id": 1763881272200,
+      "username": "test",
+      "email": "asd@gmail.com",
+      "password": "$2b$08$cseQm.1qvXxEPUzkdtnlv.N6tGv8xGFbFOtjSM1oKrbptDP3HJWBK",
+      "firstName": "Nam",
+      "lastName": "sdf",
+      "provider": "local",
+      "role": "user"
     }
   ],
   "refreshTokens": [
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc2Mzg3NDY1NjgxMywidXNlcm5hbWUiOiJjYXBoZWZhbHVtaSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYzODc1MzcwLCJleHAiOjE3NjQ0ODAxNzB9.lMYcqQLFV6PkbXOt3xnIYchV1KKCIAb4J8KYwWSYEjQ",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc2Mzg3OTg5OTU5NiwidXNlcm5hbWUiOiJuYW0udm42NDI2Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjM4ODAxMTIsImV4cCI6MTc2NDQ4NDkxMn0.RKsVNF17Sa9tMQ5QRM3KUaQZN_G22E7Y3SwEV7onVL4"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc2Mzg3OTg5OTU5NiwidXNlcm5hbWUiOiJuYW0udm42NDI2Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjM4ODA1NzEsImV4cCI6MTc2NDQ4NTM3MX0.hx7MyDm_TzCVpg3I0wnRZGLW0pUzuyxpbrUwvKkIW9Y"
   ]
 }

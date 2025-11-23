@@ -8,10 +8,10 @@
         </div>
         <div class="profile-info">
           <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-          <p class="text-muted">@{{ user.username }}</p>
+          <!-- <p class="text-muted">@{{ user.username }}</p> -->
           <p class="text-muted">{{ user.email }}</p>
           <span class="badge" :class="user.role === 'admin' ? 'bg-danger' : 'bg-primary'">
-            {{ user.role === 'admin' ? '👑 Admin' : '🎬 Member' }}
+            {{ user.role === 'admin' ? 'Admin' : 'Member' }}
           </span>
         </div>
       </div>
