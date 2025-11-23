@@ -11,6 +11,14 @@
             </div>
 
             <form @submit.prevent="handleLogin">
+            <GoogleLogin
+                :callback="handleGoogleLogin"
+                auto-login
+                popup-type="TOKEN"
+                :disabled="isAnyLoading"
+              >
+              </GoogleLogin>
+
               <div v-if="error" class="alert alert-danger" role="alert">
                 {{ error }}
               </div>
@@ -54,13 +62,8 @@
                   <router-link to="/register" class="auth-link">Sign up</router-link>
                 </p>
               </div>
-
-              <div class="demo-credentials">
-                <p class="small text-muted mb-2"><strong>Demo Credentials:</strong></p>
-                <p class="small text-muted mb-1">Admin: username: <code>admin</code>, password: <code>admin123</code></p>
-                <p class="small text-muted">User: username: <code>john_doe</code>, password: <code>password123</code></p>
-              </div>
             </form>
+
           </div>
         </div>
       </div>
@@ -70,6 +73,7 @@
 
 <script>
 import authService from '../services/authService'
+import { GoogleLogin } from "vue3-google-login"
 
 export default {
   name: 'LoginPage',
@@ -81,6 +85,23 @@ export default {
       loading: false
     }
   },
+  components: {
+    GoogleLogin
+  },
+  computed: {
+    isAnyLoading() {
+      return this.loading || this.googleLoading
+    }
+  },
+  data() {
+    return {
+      username: '',
+      password: '',
+      error: '',
+      loading: false,
+      googleLoading: false
+    }
+  },
   methods: {
     async handleLogin() {
       this.error = ''
@@ -88,11 +109,53 @@ export default {
 
       try {
         await authService.login(this.username, this.password)
-        this.$router.push(this.$route.query.redirect || '/movies')
+        // navigate to redirect (or movies) then reload the page so global state updates
+        await this.$router.push(this.$route.query.redirect || '/movies')
+        window.location.reload()
       } catch (error) {
         this.error = error.message
       } finally {
         this.loading = false
+      }
+    }
+
+    ,
+    async handleGoogleLogin(response) {
+      // response may contain access_token or credential (id_token)
+      this.error = ''
+      this.googleLoading = true
+      try {
+        let profile = null
+        if (response && response.access_token) {
+          // fetch profile from Google userinfo endpoint
+          const infoRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${encodeURIComponent(response.access_token)}`)
+          if (!infoRes.ok) throw new Error('Failed to fetch Google profile')
+          profile = await infoRes.json()
+        } else if (response && response.credential) {
+          // credential is an id_token
+          const infoRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(response.credential)}`)
+          if (!infoRes.ok) throw new Error('Failed to verify Google id token')
+          profile = await infoRes.json()
+        } else {
+          throw new Error('No Google token returned')
+        }
+
+        // profile should contain email, sub (google id), given_name, family_name
+        const googleProfile = {
+          email: profile.email,
+          googleId: profile.sub || profile.id,
+          firstName: profile.given_name || profile.name || '',
+          lastName: profile.family_name || ''
+        }
+
+        await authService.googleLogin(googleProfile)
+        // after successful login, navigate to home and reload so app state updates
+        await this.$router.push('/')
+        window.location.reload()
+      } catch (err) {
+        this.error = err.message || 'Google login failed'
+      } finally {
+        this.googleLoading = false
       }
     }
   }

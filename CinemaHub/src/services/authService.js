@@ -1,119 +1,125 @@
-// Authentication service for managing user login/logout
+// Authentication service that talks to the backend (Elysia)
 class AuthService {
-    constructor() {
-        this.currentUser = this.loadUser()
-        this.users = []
-    }
+        constructor() {
+            // Elysia backend runs on port 3000 (app/index.ts)
+            this.BASE_URL = 'http://localhost:3000'
+            this.currentUser = this.loadUser()
+        }
 
-    // Load user from localStorage
     loadUser() {
         const userStr = localStorage.getItem('currentUser')
         return userStr ? JSON.parse(userStr) : null
     }
 
-    // Save user to localStorage
     saveUser(user) {
         localStorage.setItem('currentUser', JSON.stringify(user))
         this.currentUser = user
     }
 
-    // Remove user from localStorage
-    removeUser() {
+    setTokens({ accessToken, refreshToken }) {
+        if (accessToken) localStorage.setItem('accessToken', accessToken)
+        if (refreshToken) localStorage.setItem('refreshToken', refreshToken)
+    }
+
+    clearAuth() {
         localStorage.removeItem('currentUser')
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
         this.currentUser = null
     }
 
-    // Load all users from JSON
-    async loadUsers() {
-        try {
-            const response = await fetch('/users-data.json')
-            this.users = await response.json()
-        } catch (error) {
-            console.error('Error loading users:', error)
-            this.users = []
-        }
+    getAccessToken() {
+        return localStorage.getItem('accessToken')
     }
 
-    // Register a new user
+    getRefreshToken() {
+        return localStorage.getItem('refreshToken')
+    }
+
     async register(userData) {
-        await this.loadUsers()
+        const res = await fetch(`${this.BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message || 'Registration failed')
 
-        // Check if username already exists
-        if (this.users.find(u => u.username === userData.username)) {
-            throw new Error('Username already exists')
-        }
-
-        // Check if email already exists
-        if (this.users.find(u => u.email === userData.email)) {
-            throw new Error('Email already exists')
-        }
-
-        const newUser = {
-            id: this.users.length + 1,
-            username: userData.username,
-            password: userData.password,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            role: 'user'
-        }
-
-        this.users.push(newUser)
-
-        // In a real app, this would save to a backend
-        // For now, we'll just store in localStorage
-        localStorage.setItem('users', JSON.stringify(this.users))
-
-        return newUser
+        this.setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken })
+        this.saveUser(data.user)
+        return data.user
     }
 
-    // Login user
-    async login(username, password) {
-        await this.loadUsers()
+    async login(usernameOrEmail, password) {
+        const res = await fetch(`${this.BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ usernameOrEmail, password })
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message || 'Login failed')
 
-        // Check localStorage for registered users
-        const storedUsers = localStorage.getItem('users')
-        if (storedUsers) {
-            this.users = [...this.users, ...JSON.parse(storedUsers)]
-        }
-
-        const user = this.users.find(
-            u => u.username === username && u.password === password
-        )
-
-        if (!user) {
-            throw new Error('Invalid username or password')
-        }
-
-        const userWithoutPassword = {
-            id: user.id,
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            role: user.role
-        }
-
-        this.saveUser(userWithoutPassword)
-        return userWithoutPassword
+        this.setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken })
+        this.saveUser(data.user)
+        return data.user
     }
 
-    // Logout user
-    logout() {
-        this.removeUser()
+    // Google login: client collects google profile (or token) and sends to backend
+    async googleLogin(googleProfile) {
+        // googleProfile should include: { email, googleId, firstName, lastName }
+        const res = await fetch(`${this.BASE_URL}/auth/google`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(googleProfile)
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message || 'Google login failed')
+
+        this.setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken })
+        this.saveUser(data.user)
+        return data.user
     }
 
-    // Check if user is logged in
+    async refreshAccessToken() {
+        const refreshToken = this.getRefreshToken()
+        if (!refreshToken) throw new Error('No refresh token')
+        const res = await fetch(`${this.BASE_URL}/auth/refresh`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refreshToken })
+        })
+        const data = await res.json()
+        if (!res.ok) {
+            // clear auth on invalid refresh
+            this.clearAuth()
+            throw new Error(data.message || 'Could not refresh token')
+        }
+        localStorage.setItem('accessToken', data.accessToken)
+        return data.accessToken
+    }
+
+    async logout() {
+        const refreshToken = this.getRefreshToken()
+        try {
+            await fetch(`${this.BASE_URL}/auth/logout`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ refreshToken })
+            })
+        } catch (e) {
+            // ignore errors on logout
+        }
+        this.clearAuth()
+    }
+
     isAuthenticated() {
-        return this.currentUser !== null
+        return !!this.currentUser
     }
 
-    // Check if user is admin
     isAdmin() {
         return this.currentUser && this.currentUser.role === 'admin'
     }
 
-    // Get current user
     getCurrentUser() {
         return this.currentUser
     }

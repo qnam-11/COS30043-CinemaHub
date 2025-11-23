@@ -275,10 +275,9 @@ export default {
       try {
         await authService.register(this.formData)
         this.success = 'Registration successful! Redirecting to login...'
-        
-        setTimeout(() => {
-          this.$router.push('/login')
-        }, 2000)
+        // navigate to login then reload so the app updates auth-related UI
+        await this.$router.push('/login')
+        window.location.reload()
       } catch (error) {
         this.error = error.message
       } finally {
