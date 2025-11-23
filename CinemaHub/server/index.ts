@@ -147,7 +147,6 @@ const app = new Elysia()
     await writeDB(db)
 
     const userSafe = { ...newUser }
-    delete userSafe.password
     return { user: userSafe, ...tokens }
   })
 

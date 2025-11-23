@@ -19,9 +19,21 @@
       "lastName": "Tona",
       "provider": "local",
       "role": "user"
+    },
+    {
+      "id": 1763879899596,
+      "username": "nam.vn6426",
+      "email": "nam.vn6426@gmail.com",
+      "password": null,
+      "firstName": "Ngọc Nam",
+      "lastName": "",
+      "provider": "google",
+      "googleId": "100040916191852445279",
+      "role": "user"
     }
   ],
   "refreshTokens": [
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc2Mzg3NDY1NjgxMywidXNlcm5hbWUiOiJjYXBoZWZhbHVtaSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYzODc1MzcwLCJleHAiOjE3NjQ0ODAxNzB9.lMYcqQLFV6PkbXOt3xnIYchV1KKCIAb4J8KYwWSYEjQ"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc2Mzg3NDY1NjgxMywidXNlcm5hbWUiOiJjYXBoZWZhbHVtaSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYzODc1MzcwLCJleHAiOjE3NjQ0ODAxNzB9.lMYcqQLFV6PkbXOt3xnIYchV1KKCIAb4J8KYwWSYEjQ",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc2Mzg3OTg5OTU5NiwidXNlcm5hbWUiOiJuYW0udm42NDI2Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjM4ODAxMTIsImV4cCI6MTc2NDQ4NDkxMn0.RKsVNF17Sa9tMQ5QRM3KUaQZN_G22E7Y3SwEV7onVL4"
   ]
 }
