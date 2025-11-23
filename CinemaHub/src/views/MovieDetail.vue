@@ -1,252 +1,256 @@
 <template>
-  <div class="movie-detail-page" v-if="movie">
+  <div class="movie-detail-page">
     <div class="container py-4">
-      <!-- Back Button -->
-      <router-link to="/movies" class="btn btn-outline-secondary mb-4">
-        ← Back to Movies
-      </router-link>
-
-      <!-- Movie Header -->
-      <div class="row mb-5">
-        <div class="col-lg-4 col-md-5 mb-4">
-          <img :src="movie.poster" :alt="movie.title" class="movie-poster-large" />
+      
+      <div v-if="isLoading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="col-lg-8 col-md-7">
-          <h1 class="movie-title-large">{{ movie.title }}</h1>
-          <div class="movie-meta mb-3">
-            <span class="badge bg-primary me-2">{{ movie.year }}</span>
-            <span class="badge bg-secondary me-2">{{ movie.duration }}</span>
-            <span class="badge bg-warning text-dark me-2">
-              <span class="me-1">⭐</span>{{ movie.rating }}
-            </span>
-            <span 
-              v-for="genre in movie.genre" 
-              :key="genre" 
-              class="badge bg-info me-2"
-            >
-              {{ genre }}
-            </span>
-          </div>
-
-          <p class="movie-description">{{ movie.description }}</p>
-
-          <div class="movie-details mb-4">
-            <p><strong>Director:</strong> {{ movie.director }}</p>
-            <p><strong>Cast:</strong> {{ movie.cast ? movie.cast.join(', ') : 'N/A' }}</p>
-            <p><strong>Language:</strong> {{ movie.language ? movie.language.join(', ') : 'English' }}</p>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="action-buttons mb-4">
-            <button 
-              v-if="isAuthenticated"
-              @click="toggleLike" 
-              class="btn btn-like me-2"
-              :class="{ 'liked': isLiked }"
-            >
-              <span class="me-1">{{ isLiked ? '❤️' : '🤍' }}</span>
-              {{ movie.likes }} Likes
-            </button>
-            <button 
-              v-if="showtimes.length > 0"
-              @click="scrollToShowtimes" 
-              class="btn btn-primary"
-            >
-              🎟️ Book Tickets
-            </button>
-          </div>
-
-          <!-- User Reviews Summary -->
-          <div class="reviews-summary">
-            <h5>User Reviews</h5>
-            <div class="d-flex align-items-center mb-2">
-              <div class="average-rating me-3">
-                <span class="rating-number">{{ averageRating || movie.rating }}</span>
-                <span class="rating-stars">{{ getStars(averageRating || movie.rating) }}</span>
-              </div>
-              <div class="review-count">
-                {{ movieReviews.length }} {{ movieReviews.length === 1 ? 'Review' : 'Reviews' }}
-              </div>
-            </div>
-            <button 
-              v-if="isAuthenticated && !userHasReviewed"
-              @click="showReviewModal = true" 
-              class="btn btn-sm btn-outline-primary"
-            >
-              Write a Review
-            </button>
-          </div>
-        </div>
+        <p class="mt-3 text-white">Loading movie details...</p>
       </div>
 
-      <!-- Synopsis Section -->
-      <div class="content-section mb-5" v-if="movie.synopsis">
-        <h3>Synopsis</h3>
-        <p class="synopsis-text">{{ movie.synopsis }}</p>
+      <div v-else-if="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+        <router-link to="/movies" class="alert-link ms-2">Go back</router-link>
       </div>
 
-      <!-- Trailer Section -->
-      <div class="content-section mb-5" v-if="movie.trailer">
-        <h3>Trailer</h3>
-        <div class="trailer-container">
-          <iframe 
-            :src="movie.trailer" 
-            title="Movie Trailer"
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
-      <!-- Showtimes Section -->
-      <div class="content-section mb-5" v-if="showtimes.length > 0">
-        <h3 id="showtimes-section">Showtimes & Tickets</h3>
+      <div v-else-if="movie">
         
-        <!-- Filters -->
-        <div class="row g-3 mb-4">
-          <div class="col-md-3">
-            <label class="form-label">Cinema</label>
-            <select v-model="filters.cinemaId" class="form-select" @change="filterShowtimes">
-              <option value="">All Cinemas</option>
-              <option v-for="cinema in cinemas" :key="cinema.id" :value="cinema.id">
-                {{ cinema.name }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Date</label>
-            <select v-model="filters.date" class="form-select" @change="filterShowtimes">
-              <option value="">All Dates</option>
-              <option v-for="date in uniqueDates" :key="date" :value="date">
-                {{ formatDate(date) }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Format</label>
-            <select v-model="filters.format" class="form-select" @change="filterShowtimes">
-              <option value="">All Formats</option>
-              <option v-for="format in uniqueFormats" :key="format" :value="format">
-                {{ format }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Language</label>
-            <select v-model="filters.language" class="form-select" @change="filterShowtimes">
-              <option value="">All Languages</option>
-              <option v-for="lang in uniqueLanguages" :key="lang" :value="lang">
-                {{ lang }}
-              </option>
-            </select>
-          </div>
-        </div>
+        <router-link to="/movies" class="btn btn-outline-secondary mb-4">
+          ← Back to Movies
+        </router-link>
 
-        <!-- Showtimes List -->
-        <div class="showtimes-list">
-          <div 
-            v-for="showtime in filteredShowtimes" 
-            :key="showtime.id" 
-            class="showtime-card"
-          >
-            <div class="showtime-info">
-              <h5>{{ getCinemaName(showtime.cinemaId) }}</h5>
-              <p class="text-muted mb-1">{{ showtime.address }}</p>
-              <div class="showtime-details">
-                <span class="badge bg-secondary me-2">{{ formatDate(showtime.date) }}</span>
-                <span class="badge bg-primary me-2">{{ showtime.time }}</span>
-                <span class="badge bg-info me-2">{{ showtime.format }}</span>
-                <span class="badge bg-success me-2">{{ showtime.language }}</span>
-              </div>
-              <p class="mt-2 mb-0">
-                <strong>Screen {{ showtime.screenNumber }}</strong> • 
-                {{ showtime.availableSeats }} seats available
-              </p>
-            </div>
-            <div class="showtime-booking">
-              <div class="price-info mb-2">
-                <small class="text-muted">From</small>
-                <div class="price">${{ showtime.price.child.toFixed(2) }}</div>
-              </div>
-              <button 
-                @click="selectShowtime(showtime)" 
-                class="btn btn-primary"
-                :disabled="showtime.availableSeats === 0"
+        <div class="row mb-5">
+          <div class="col-lg-4 col-md-5 mb-4">
+            <img :src="movie.poster" :alt="movie.title" class="movie-poster-large" />
+          </div>
+          <div class="col-lg-8 col-md-7">
+            <h1 class="movie-title-large">{{ movie.title }}</h1>
+            <div class="movie-meta mb-3">
+              <span class="badge bg-primary me-2">{{ movie.year }}</span>
+              <span class="badge bg-secondary me-2">{{ movie.duration }}</span>
+              <span class="badge bg-warning text-dark me-2">
+                <span class="me-1">⭐</span>{{ movie.rating }}
+              </span>
+              <span 
+                v-for="genre in movie.genre" 
+                :key="genre" 
+                class="badge bg-info me-2"
               >
-                {{ showtime.availableSeats === 0 ? 'Sold Out' : 'Select Seats' }}
+                {{ genre }}
+              </span>
+            </div>
+
+            <p class="movie-description">{{ movie.description }}</p>
+
+            <div class="movie-details mb-4">
+              <p><strong>Director:</strong> {{ movie.director }}</p>
+              <p><strong>Cast:</strong> {{ movie.cast ? movie.cast.join(', ') : 'N/A' }}</p>
+              <p><strong>Language:</strong> {{ movie.language ? movie.language.join(', ') : 'English' }}</p>
+            </div>
+
+            <div class="action-buttons mb-4">
+              <button 
+                v-if="isAuthenticated"
+                @click="toggleLike" 
+                class="btn btn-like me-2"
+                :class="{ 'liked': isLiked }"
+              >
+                <span class="me-1">{{ isLiked ? '❤️' : '🤍' }}</span>
+                {{ movie.likes }} Likes
+              </button>
+              <button 
+                v-if="showtimes.length > 0"
+                @click="scrollToShowtimes" 
+                class="btn btn-primary"
+              >
+                🎟️ Book Tickets
               </button>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Reviews Section -->
-      <div class="content-section mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3>User Reviews ({{ movieReviews.length }})</h3>
-          <select v-model="reviewSort" class="form-select w-auto" @change="sortReviews">
-            <option value="recent">Most Recent</option>
-            <option value="helpful">Most Helpful</option>
-            <option value="rating-high">Highest Rating</option>
-            <option value="rating-low">Lowest Rating</option>
-          </select>
-        </div>
-
-        <div v-if="sortedReviews.length === 0" class="text-center text-muted py-4">
-          No reviews yet. Be the first to review this movie!
-        </div>
-
-        <div v-else class="reviews-list">
-          <div 
-            v-for="review in sortedReviews" 
-            :key="review.id" 
-            class="review-card"
-          >
-            <div class="review-header">
-              <div>
-                <strong>{{ review.userFullName }}</strong>
-                <div class="review-rating">
-                  {{ getStars(review.rating) }}
-                  <span class="rating-number-small">{{ review.rating }}/5</span>
+            <div class="reviews-summary">
+              <h5>User Reviews</h5>
+              <div class="d-flex align-items-center mb-2">
+                <div class="average-rating me-3">
+                  <span class="rating-number">{{ averageRating || movie.rating }}</span>
+                  <span class="rating-stars">{{ getStars(averageRating || movie.rating) }}</span>
+                </div>
+                <div class="review-count">
+                  {{ movieReviews.length }} {{ movieReviews.length === 1 ? 'Review' : 'Reviews' }}
                 </div>
               </div>
-              <div class="review-date">
-                {{ formatReviewDate(review.date) }}
-              </div>
-            </div>
-            <h5 class="review-title">{{ review.title }}</h5>
-            <p class="review-content">{{ review.content }}</p>
-            <div class="review-footer">
               <button 
-                @click="voteHelpful(review.id)" 
-                class="btn btn-sm btn-outline-secondary"
-                :class="{ 'active': hasVoted(review.id) }"
-                :disabled="!isAuthenticated"
+                v-if="isAuthenticated && !userHasReviewed"
+                @click="showReviewModal = true" 
+                class="btn btn-sm btn-outline-primary"
               >
-                👍 Helpful ({{ review.helpful }})
+                Write a Review
               </button>
-              <div v-if="canEditReview(review)">
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section mb-5" v-if="movie.synopsis">
+          <h3>Synopsis</h3>
+          <p class="synopsis-text">{{ movie.synopsis }}</p>
+        </div>
+
+        <div class="content-section mb-5" v-if="movie.trailer">
+          <h3>Trailer</h3>
+          <div class="trailer-container">
+            <iframe 
+              :src="movie.trailer" 
+              title="Movie Trailer"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="content-section mb-5" v-if="showtimes.length > 0">
+          <h3 id="showtimes-section">Showtimes & Tickets</h3>
+          
+          <div class="row g-3 mb-4">
+            <div class="col-md-3">
+              <label class="form-label">Cinema</label>
+              <select v-model="filters.cinemaId" class="form-select" @change="filterShowtimes">
+                <option value="">All Cinemas</option>
+                <option v-for="cinema in cinemas" :key="cinema.id" :value="cinema.id">
+                  {{ cinema.name }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Date</label>
+              <select v-model="filters.date" class="form-select" @change="filterShowtimes">
+                <option value="">All Dates</option>
+                <option v-for="date in uniqueDates" :key="date" :value="date">
+                  {{ formatDate(date) }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Format</label>
+              <select v-model="filters.format" class="form-select" @change="filterShowtimes">
+                <option value="">All Formats</option>
+                <option v-for="format in uniqueFormats" :key="format" :value="format">
+                  {{ format }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Language</label>
+              <select v-model="filters.language" class="form-select" @change="filterShowtimes">
+                <option value="">All Languages</option>
+                <option v-for="lang in uniqueLanguages" :key="lang" :value="lang">
+                  {{ lang }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="showtimes-list">
+            <div 
+              v-for="showtime in filteredShowtimes" 
+              :key="showtime.id" 
+              class="showtime-card"
+            >
+              <div class="showtime-info">
+                <h5>{{ getCinemaName(showtime.cinemaId) }}</h5>
+                <p class="text-muted mb-1">{{ showtime.address }}</p>
+                <div class="showtime-details">
+                  <span class="badge bg-secondary me-2">{{ formatDate(showtime.date) }}</span>
+                  <span class="badge bg-primary me-2">{{ showtime.time }}</span>
+                  <span class="badge bg-info me-2">{{ showtime.format }}</span>
+                  <span class="badge bg-success me-2">{{ showtime.language }}</span>
+                </div>
+                <p class="mt-2 mb-0">
+                  <strong>Screen {{ showtime.screenNumber }}</strong> • 
+                  {{ showtime.availableSeats }} seats available
+                </p>
+              </div>
+              <div class="showtime-booking">
+                <div class="price-info mb-2">
+                  <small class="text-muted">From</small>
+                  <div class="price">${{ showtime.price.child.toFixed(2) }}</div>
+                </div>
                 <button 
-                  @click="editReview(review)" 
-                  class="btn btn-sm btn-outline-primary ms-2"
+                  @click="selectShowtime(showtime)" 
+                  class="btn btn-primary"
+                  :disabled="showtime.availableSeats === 0"
                 >
-                  Edit
-                </button>
-                <button 
-                  @click="deleteReview(review.id)" 
-                  class="btn btn-sm btn-outline-danger ms-2"
-                >
-                  Delete
+                  {{ showtime.availableSeats === 0 ? 'Sold Out' : 'Select Seats' }}
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Review Modal -->
+        <div class="content-section mb-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>User Reviews ({{ movieReviews.length }})</h3>
+            <select v-model="reviewSort" class="form-select w-auto" @change="sortReviews">
+              <option value="recent">Most Recent</option>
+              <option value="helpful">Most Helpful</option>
+              <option value="rating-high">Highest Rating</option>
+              <option value="rating-low">Lowest Rating</option>
+            </select>
+          </div>
+
+          <div v-if="sortedReviews.length === 0" class="text-center text-muted py-4">
+            No reviews yet. Be the first to review this movie!
+          </div>
+
+          <div v-else class="reviews-list">
+            <div 
+              v-for="review in sortedReviews" 
+              :key="review.id" 
+              class="review-card"
+            >
+              <div class="review-header">
+                <div>
+                  <strong>{{ review.userFullName }}</strong>
+                  <div class="review-rating">
+                    {{ getStars(review.rating) }}
+                    <span class="rating-number-small">{{ review.rating }}/5</span>
+                  </div>
+                </div>
+                <div class="review-date">
+                  {{ formatReviewDate(review.date) }}
+                </div>
+              </div>
+              <h5 class="review-title">{{ review.title }}</h5>
+              <p class="review-content">{{ review.content }}</p>
+              <div class="review-footer">
+                <button 
+                  @click="voteHelpful(review.id)" 
+                  class="btn btn-sm btn-outline-secondary"
+                  :class="{ 'active': hasVoted(review.id) }"
+                  :disabled="!isAuthenticated"
+                >
+                  👍 Helpful ({{ review.helpful }})
+                </button>
+                <div v-if="canEditReview(review)">
+                  <button 
+                    @click="editReview(review)" 
+                    class="btn btn-sm btn-outline-primary ms-2"
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    @click="deleteReview(review.id)" 
+                    class="btn btn-sm btn-outline-danger ms-2"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> </div>
+
     <div v-if="showReviewModal" class="modal-overlay" @click.self="showReviewModal = false">
       <div class="modal-content">
         <div class="modal-header">
@@ -320,69 +324,78 @@ export default {
     const router = useRouter()
     
     const movie = ref(null)
+    const isLoading = ref(true)
+    const errorMessage = ref('')
     const showtimes = ref([])
     const cinemas = ref([])
     const movieReviews = ref([])
     const isAuthenticated = ref(false)
     const isLiked = ref(false)
     const currentUser = ref(null)
-
-    // Filters
     const filters = ref({
       cinemaId: '',
       date: '',
       format: '',
       language: ''
     })
-
     const filteredShowtimes = ref([])
-    
-    // Review state
     const showReviewModal = ref(false)
     const reviewSort = ref('recent')
-    const reviewForm = ref({
-      rating: 5,
-      title: '',
-      content: ''
-    })
+    const reviewForm = ref({ rating: 5, title: '', content: '' })
     const reviewError = ref('')
     const editingReview = ref(null)
     const hoverRating = ref(0)
 
     const loadMovie = async () => {
-      const movieId = parseInt(route.params.id)
-      await moviesService.loadMovies()
-      movie.value = moviesService.getMovieById(movieId)
+      isLoading.value = true
+      errorMessage.value = ''
       
-      if (!movie.value) {
-        router.push('/movies')
-        return
-      }
+      try {
+        const movieId = parseInt(route.params.id)
+        
+        // 1. Force the service to load data first
+        // Ensure movies-data.json is in /public
+        await moviesService.loadMovies() 
 
-      // Check if user liked this movie
-      if (isAuthenticated.value) {
-        isLiked.value = moviesService.hasUserLiked(movieId)
-      }
+        // 2. Get the specific movie
+        const foundMovie = await moviesService.getMovieById(movieId)
 
-      // Load reviews
-      movieReviews.value = reviewService.getMovieReviews(movieId)
+        if (foundMovie) {
+          movie.value = foundMovie
+          
+          if (isAuthenticated.value) {
+            isLiked.value = moviesService.hasUserLiked(movieId)
+          }
+          movieReviews.value = reviewService.getMovieReviews(movieId)
+        } else {
+          errorMessage.value = 'Movie not found.'
+        }
+      } catch (error) {
+        console.error('Failed to load movie:', error)
+        errorMessage.value = 'Error loading data. Please try again.'
+      } finally {
+        isLoading.value = false 
+      }
     }
 
     const loadShowtimes = async () => {
-      await cinemaService.loadShowtimes()
-      await cinemaService.loadCinemas()
-      
-      const movieId = parseInt(route.params.id)
-      showtimes.value = cinemaService.getShowtimesByMovieId(movieId)
-      cinemas.value = cinemaService.getAllCinemas()
-      
-      // Add cinema address to showtimes
-      showtimes.value = showtimes.value.map(st => {
-        const cinema = cinemas.value.find(c => c.id === st.cinemaId)
-        return { ...st, address: cinema ? cinema.address : '' }
-      })
-      
-      filteredShowtimes.value = showtimes.value
+      try {
+        await cinemaService.loadShowtimes()
+        await cinemaService.loadCinemas()
+        
+        const movieId = parseInt(route.params.id)
+        showtimes.value = cinemaService.getShowtimesByMovieId(movieId)
+        cinemas.value = cinemaService.getAllCinemas()
+        
+        showtimes.value = showtimes.value.map(st => {
+          const cinema = cinemas.value.find(c => c.id === st.cinemaId)
+          return { ...st, address: cinema ? cinema.address : '' }
+        })
+        
+        filteredShowtimes.value = showtimes.value
+      } catch (e) {
+        console.error("Error loading showtimes", e)
+      }
     }
 
     const toggleLike = () => {
@@ -455,14 +468,14 @@ export default {
     }
 
     const getStars = (rating) => {
-      const fullStars = Math.floor(rating)
-      const halfStar = rating % 1 >= 0.5 ? 1 : 0
-      const emptyStars = 5 - fullStars - halfStar
-      
+      if (!rating || rating < 0) return '☆☆☆☆☆'
+      const safeRating = Math.min(Math.max(rating, 0), 5)
+      const fullStars = Math.floor(safeRating)
+      const halfStar = safeRating % 1 >= 0.5 ? 1 : 0
+      const emptyStars = Math.max(0, 5 - fullStars - halfStar)
       return '⭐'.repeat(fullStars) + (halfStar ? '⭐' : '') + '☆'.repeat(emptyStars)
     }
 
-    // Review methods
     const submitReview = async () => {
       if (!reviewForm.value.title.trim() || !reviewForm.value.content.trim()) {
         reviewError.value = 'Please fill in all fields'
@@ -530,7 +543,6 @@ export default {
       // Trigger computed property update
     }
 
-    // Computed properties
     const uniqueDates = computed(() => {
       const dates = new Set(showtimes.value.map(st => st.date))
       return Array.from(dates).sort()
@@ -563,12 +575,15 @@ export default {
       isAuthenticated.value = authService.isAuthenticated()
       currentUser.value = authService.getCurrentUser()
       
+      // Use await to properly pause until data is ready
       await loadMovie()
       await loadShowtimes()
     })
 
     return {
       movie,
+      isLoading,
+      errorMessage,
       showtimes,
       cinemas,
       filteredShowtimes,
@@ -609,12 +624,12 @@ export default {
 </script>
 
 <style scoped>
+/* Keep your existing styles as they were */
 .movie-detail-page {
   min-height: 100vh;
   background: linear-gradient(180deg, var(--color-background) 0%, var(--color-background-soft) 100%);
 }
 
-/* Form Controls */
 .form-label {
   color: var(--text-light);
   font-weight: 500;
@@ -974,7 +989,6 @@ export default {
   transform: scale(1.2);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .movie-title-large {
     font-size: 1.8rem;

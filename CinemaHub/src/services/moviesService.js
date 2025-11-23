@@ -2,30 +2,53 @@
 class MoviesService {
     constructor() {
         this.movies = []
-        this.loadMovies()
+        this.loadingPromise = null
     }
 
     // Load movies from JSON and localStorage
     async loadMovies() {
-        try {
-            const response = await fetch('/movies-data.json')
-            const jsonMovies = await response.json()
-
-            // Check localStorage for additional movies
-            const storedMovies = localStorage.getItem('movies')
-            const localMovies = storedMovies ? JSON.parse(storedMovies) : []
-
-            // Combine and deduplicate
-            const allMovies = [...jsonMovies, ...localMovies]
-            this.movies = allMovies.filter((movie, index, self) =>
-                index === self.findIndex(m => m.id === movie.id)
-            )
-
-            return this.movies
-        } catch (error) {
-            console.error('Error loading movies:', error)
-            return []
+        // Prevent multiple simultaneous loads
+        if (this.loadingPromise) {
+            return this.loadingPromise
         }
+
+        // If already loaded, return immediately
+        if (this.movies.length > 0) {
+            return this.movies
+        }
+
+        this.loadingPromise = (async () => {
+            try {
+                console.log('Fetching movies from /movies-data.json...')
+                const response = await fetch('/movies-data.json')
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+
+                const jsonMovies = await response.json()
+                console.log('Movies loaded:', jsonMovies.length)
+
+                // Check localStorage for additional movies
+                const storedMovies = localStorage.getItem('movies')
+                const localMovies = storedMovies ? JSON.parse(storedMovies) : []
+
+                // Combine and deduplicate
+                const allMovies = [...jsonMovies, ...localMovies]
+                this.movies = allMovies.filter((movie, index, self) =>
+                    index === self.findIndex(m => m.id === movie.id)
+                )
+
+                return this.movies
+            } catch (error) {
+                console.error('Error loading movies:', error)
+                return []
+            } finally {
+                this.loadingPromise = null
+            }
+        })()
+
+        return this.loadingPromise
     }
 
     // Save movies to localStorage

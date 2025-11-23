@@ -27,7 +27,7 @@
             </li>
             
             <!-- User Menu -->
-            <li v-if="isAuthenticated" class="nav-item dropdown">
+            <li v-if="isAuthenticated && currentUser" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle user-menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="user-icon">👤</span>
                 <span class="user-name">{{ currentUser.firstName }}</span>
@@ -90,7 +90,7 @@ export default {
   },
   computed: {
     isAuthenticated() {
-      return authService.isAuthenticated()
+      return this.currentUser !== null
     }
   },
   methods: {
@@ -106,12 +106,21 @@ export default {
     }
   },
   watch: {
-    $route() {
-      this.updateUser()
+    $route: {
+      handler() {
+        this.updateUser()
+      },
+      immediate: true
     }
   },
   mounted() {
     this.updateUser()
+    // Listen for storage changes (for logout in other tabs)
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'currentUser' || e.key === 'accessToken') {
+        this.updateUser()
+      }
+    })
   }
 }
 </script>

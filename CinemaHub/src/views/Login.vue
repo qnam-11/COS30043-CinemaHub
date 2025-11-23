@@ -120,9 +120,8 @@ export default {
 
       try {
         await authService.login(this.username, this.password)
-        // navigate to redirect (or movies) then reload the page so global state updates
+        // navigate to redirect (or movies)
         await this.$router.push(this.$route.query.redirect || '/movies')
-        window.location.reload()
       } catch (error) {
         this.error = error.message
       } finally {
@@ -160,9 +159,8 @@ export default {
         }
 
         await authService.googleLogin(googleProfile)
-        // after successful login, navigate to home and reload so app state updates
+        // after successful login, navigate to home
         await this.$router.push('/')
-        window.location.reload()
       } catch (err) {
         this.error = err.message || 'Google login failed'
       } finally {

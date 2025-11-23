@@ -274,10 +274,9 @@ export default {
 
       try {
         await authService.register(this.formData)
-        this.success = 'Registration successful! Redirecting to login...'
-        // navigate to login then reload so the app updates auth-related UI
-        await this.$router.push('/login')
-        window.location.reload()
+        this.success = 'Registration successful! Redirecting...'
+        // navigate to movies page after registration
+        await this.$router.push('/movies')
       } catch (error) {
         this.error = error.message
       } finally {
