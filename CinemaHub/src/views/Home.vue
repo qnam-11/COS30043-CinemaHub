@@ -8,7 +8,7 @@
             <h1 class="hero-title">Welcome to CinemaHub</h1>
             <p class="hero-subtitle">
               Book tickets for the latest movies at premium theaters near you. 
-              Your ultimate destination for hassle-free cinema ticket booking. 
+              Your ultimate destination for booking ticket within a minute. 
               Enjoy the magic of cinema with reserved seating, multiple formats, 
               and the best movie-going experience.
             </p>
@@ -23,7 +23,7 @@
           </div>
           <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
             <img 
-              src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&h=600&fit=crop" 
+              src="/images/HomePage-CinemaPic.jpg"
               alt="Cinema Experience" 
               class="hero-image img-fluid rounded shadow-lg"
             />
@@ -77,7 +77,7 @@
           <div class="col-md-6 col-sm-12 mb-4">
             <router-link to="/movies" class="showcase-card">
               <img 
-                src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=700&h=500&fit=crop" 
+                src="/images/HomePage-PremiumTheater.jpg" 
                 alt="Movie Theater" 
                 class="showcase-image img-fluid rounded"
               />
@@ -90,7 +90,7 @@
           <div class="col-md-6 col-sm-12 mb-4">
             <router-link to="/news" class="showcase-card">
               <img 
-                src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=700&h=500&fit=crop" 
+                src="/images/HomePage-News.jpg" 
                 alt="Streaming Service" 
                 class="showcase-image img-fluid rounded"
               />

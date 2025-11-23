@@ -71,7 +71,19 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        // Always scroll to top when navigating to MovieDetail
+        if (to.name === 'MovieDetail') {
+            return { top: 0, behavior: 'smooth' }
+        }
+        // If there's a saved position (browser back/forward), use it
+        if (savedPosition) {
+            return savedPosition
+        }
+        // Otherwise scroll to top
+        return { top: 0, behavior: 'smooth' }
+    }
 })
 
 // Navigation guards
