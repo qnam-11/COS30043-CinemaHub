@@ -167,7 +167,7 @@ npm run dev
 
 ---
 
-## 🌐 Accessing the Application
+## Accessing the Application
 
 Once the servers are running, open your browser and navigate to:
 
@@ -202,7 +202,7 @@ Password: test123
 
 ---
 
-## 🎯 Testing the Real-Time Feature
+## Testing the Real-Time Feature
 
 To test the real-time seat booking:
 
@@ -321,7 +321,7 @@ taskkill /PID <PID> /F
 
 ---
 
-## 🎓 Learning Outcomes
+## Learning Outcomes
 
 This project demonstrates:
 - Modern Vue.js 3 development with Composition API
@@ -340,7 +340,7 @@ This project is created for educational purposes as part of COS30043 - Interface
 
 ---
 
-## 👨Author
+## Author
 
 **Course:** COS30043 - Interface Design and Development  
 **Institution:** Swinburne University of Technology  
