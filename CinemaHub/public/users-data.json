@@ -1,20 +1,31 @@
 [
-    {
-        "id": 1,
-        "username": "admin",
-        "password": "admin123",
-        "firstName": "Admin",
-        "lastName": "User",
-        "email": "admin@cinemahub.com",
-        "role": "admin"
-    },
-    {
-        "id": 2,
-        "username": "john_doe",
-        "password": "password123",
-        "firstName": "John",
-        "lastName": "Doe",
-        "email": "john@example.com",
-        "role": "user"
-    }
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "admin123",
+    "firstName": "Admin",
+    "lastName": "User",
+    "email": "admin@cinemahub.com",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "username": "john_doe",
+    "password": "password123",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "role": "user"
+  },
+  {
+    "id": 1763881883088,
+    "username": "nam.vn6426",
+    "email": "nam.vn6426@gmail.com",
+    "password": null,
+    "firstName": "Ngọc Nam",
+    "lastName": "",
+    "provider": "google",
+    "googleId": "100040916191852445279",
+    "role": "user"
+  }
 ]

@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "bun run --hot ./server/index.ts",
-    "app": "concurrently \"bun run server\" \"bun run dev\""
+    "app": "concurrently \"npm:server\" \"npm:dev\""
   },
   "dependencies": {
     "@elysiajs/cors": "latest",
