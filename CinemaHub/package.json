@@ -7,13 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "server": "bun run --hot ./server/index.ts"
+    "server": "bun run --hot ./server/index.ts",
+    "app": "concurrently \"bun run server\" \"bun run dev\""
   },
   "dependencies": {
     "@elysiajs/cors": "latest",
-    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
+    "concurrently": "^9.2.1",
     "elysia": "latest",
     "jose": "^6.1.2",
     "jsonwebtoken": "^9.0.0",
