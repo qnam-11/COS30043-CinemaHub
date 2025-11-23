@@ -384,14 +384,18 @@ export default {
 }
 
 .auth-link {
-  color: var(--primary-color);
+  color: #462b83;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .auth-link:hover {
-  color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
 }
 
 .alert {

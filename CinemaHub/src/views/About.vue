@@ -68,7 +68,7 @@
               <!-- Welcome Message -->
               <div v-if="fullName" class="welcome-message mt-4">
                 <div class="welcome-card">
-                  <div class="welcome-icon">👋</div>
+                  <!-- <div class="welcome-icon">👋</div> -->
                   <h3>{{ welcomeMessage }}</h3>
                   <p>We're excited to have you here at CinemaHub!</p>
                 </div>
@@ -92,7 +92,7 @@
                     aria-label="Select mountain view"
                   />
                   <label class="form-check-label" for="mountainChoice">
-                    <span class="radio-icon">🏔️</span>
+                    <!-- <span class="radio-icon">🏔️</span> -->
                     <span class="radio-text">Mountain Retreat</span>
                     <span class="radio-description">Peaceful and serene</span>
                   </label>
@@ -109,7 +109,7 @@
                     aria-label="Select ocean view"
                   />
                   <label class="form-check-label" for="oceanChoice">
-                    <span class="radio-icon">🌊</span>
+                    <!-- <span class="radio-icon">🌊</span> -->
                     <span class="radio-text">Ocean Paradise</span>
                     <span class="radio-description">Calm and relaxing</span>
                   </label>
