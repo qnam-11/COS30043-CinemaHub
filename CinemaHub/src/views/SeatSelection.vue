@@ -34,11 +34,18 @@
               </div>
               <div class="legend-item">
                 <div class="seat selected"></div>
-                <span>Selected</span>
+                <span>Selected by You</span>
+              </div>
+              <div class="legend-item">
+                <div class="seat locked"></div>
+                <span>Locked by Others</span>
               </div>
               <div class="legend-item">
                 <div class="seat occupied"></div>
                 <span>Occupied</span>
+              </div>
+              <div class="legend-item" v-if="isConnected">
+                <span class="realtime-badge">Live</span>
               </div>
             </div>
 
@@ -56,11 +63,13 @@
                     :key="`${row.row}-${seat.number}`"
                     class="seat"
                     :class="{
-                      'available': !seat.occupied && !isSeatSelected(row.row, seat.number),
+                      'available': !seat.occupied && !isSeatSelected(row.row, seat.number) && !isSeatLocked(row.row, seat.number),
                       'selected': isSeatSelected(row.row, seat.number),
+                      'locked': isSeatLocked(row.row, seat.number),
                       'occupied': seat.occupied
                     }"
                     @click="toggleSeat(row.row, seat.number)"
+                    :title="isSeatLocked(row.row, seat.number) ? 'Locked by another user' : ''"
                   >
                     {{ seat.number }}
                   </div>
@@ -118,7 +127,7 @@
                   class="seat-chip"
                 >
                   {{ seat.row }}{{ seat.number }}
-                  <button @click="removeSeat(seat)" class="remove-seat">×</button>
+                  <button @click="removeSeat(seat)" class="remove-seat">x</button>
                 </span>
               </div>
             </div>
@@ -166,11 +175,13 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import moviesService from '../services/moviesService'
 import cinemaService from '../services/cinemaService'
 import bookingService from '../services/bookingService'
+import authService from '../services/authService'
+import { useRealtimeSeats } from '../composables/useRealtimeSeats'
 
 export default {
   name: 'SeatSelection',
@@ -192,6 +203,24 @@ export default {
     })
 
     const validationMessage = ref('')
+
+    // Get current user for real-time features
+    const currentUser = authService.getCurrentUser()
+    const userId = currentUser ? currentUser.username : `guest-${Date.now()}`
+
+    // Initialize real-time seat management
+    // This composable handles WebSocket connection and seat locking
+    const showtimeId = parseInt(route.params.showtimeId)
+    const {
+      isConnected,
+      connectionError,
+      lockedSeats,
+      lockSeat,
+      unlockSeat,
+      unlockSeats,
+      isSeatLockedByOthers,
+      confirmBooking
+    } = useRealtimeSeats(showtimeId.toString(), userId)
 
     const loadData = async () => {
       const showtimeId = parseInt(route.params.showtimeId)
@@ -242,13 +271,23 @@ export default {
         return
       }
 
+      const seatId = `${row}-${number}`
+
+      // REAL-TIME FEATURE: Check if seat is locked by another user
+      if (isSeatLockedByOthers(seatId)) {
+        validationMessage.value = `Seat ${row}${number} is currently being selected by another user`
+        setTimeout(() => validationMessage.value = '', 3000)
+        return
+      }
+
       const seatIndex = selectedSeats.value.findIndex(
         s => s.row === row && s.number === number
       )
 
       if (seatIndex > -1) {
-        // Remove seat
+        // Remove seat - unlock it in real-time
         selectedSeats.value.splice(seatIndex, 1)
+        unlockSeat(seatId)
       } else {
         // Add seat (max 10 seats)
         if (selectedSeats.value.length >= 10) {
@@ -256,12 +295,26 @@ export default {
           setTimeout(() => validationMessage.value = '', 3000)
           return
         }
-        selectedSeats.value.push({ row, number })
+
+        // REAL-TIME FEATURE: Try to lock the seat
+        const lockSuccess = lockSeat(seatId)
+        if (lockSuccess) {
+          selectedSeats.value.push({ row, number })
+        } else {
+          validationMessage.value = `Seat ${row}${number} was just selected by another user`
+          setTimeout(() => validationMessage.value = '', 3000)
+        }
       }
     }
 
     const isSeatSelected = (row, number) => {
       return selectedSeats.value.some(s => s.row === row && s.number === number)
+    }
+
+    // REAL-TIME FEATURE: Check if seat is locked by another user
+    const isSeatLocked = (row, number) => {
+      const seatId = `${row}-${number}`
+      return isSeatLockedByOthers(seatId)
     }
 
     const removeSeat = (seat) => {
@@ -298,6 +351,10 @@ export default {
     }
 
     const clearSelection = () => {
+      // REAL-TIME FEATURE: Unlock all selected seats
+      const seatIds = selectedSeats.value.map(s => `${s.row}-${s.number}`)
+      unlockSeats(seatIds)
+
       selectedSeats.value = []
       Object.keys(ticketTypes.value).forEach(key => {
         ticketTypes.value[key].count = 0
@@ -348,6 +405,11 @@ export default {
         seats,
         totalPrice: totalPrice.value
       }
+
+      // REAL-TIME FEATURE: Confirm booking to convert temporary locks to permanent
+      // This keeps the seats locked even after the user completes checkout
+      const seatIds = selectedSeats.value.map(s => `${s.row}-${s.number}`)
+      confirmBooking(seatIds)
 
       // Save to cart
       bookingService.saveCart(bookingData)
@@ -400,6 +462,7 @@ export default {
       canProceed,
       toggleSeat,
       isSeatSelected,
+      isSeatLocked,
       removeSeat,
       increaseTicket,
       decreaseTicket,
@@ -407,7 +470,10 @@ export default {
       clearSelection,
       goBack,
       proceedToCheckout,
-      formatDate
+      formatDate,
+      // Real-time connection status
+      isConnected,
+      connectionError
     }
   }
 }
@@ -539,6 +605,43 @@ export default {
   cursor: not-allowed;
 }
 
+.seat.locked {
+  background: #f59e0b;
+  color: white;
+  cursor: not-allowed;
+  animation: pulse-locked 2s ease-in-out infinite;
+}
+
+@keyframes pulse-locked {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.realtime-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.50rem 1rem;
+  background: rgba(88, 239, 68, 0.2);
+  color: #58ef44;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .booking-summary {
   padding: 2rem;
   background: rgba(255, 255, 255, 0.05);
@@ -615,7 +718,7 @@ export default {
 .remove-seat {
   background: none;
   border: none;
-  color: white;
+  color: rgba(255, 0, 0, 0.542);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -629,7 +732,7 @@ export default {
 }
 
 .remove-seat:hover {
-  background: rgba(255, 255, 255, 0.2);
+  color: rgb(255, 0, 0);
 }
 
 .price-breakdown {

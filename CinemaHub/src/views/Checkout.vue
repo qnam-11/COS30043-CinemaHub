@@ -78,7 +78,7 @@
               </div>
             </div>
 
-            <!-- Mock Card Form -->
+            <!-- Example Card Form -->
             <div v-if="selectedPayment === 'card'" class="card-form">
               <div class="mb-3">
                 <label class="form-label">Card Number</label>
@@ -107,8 +107,8 @@
                     type="text" 
                     class="form-control"
                     v-model="cardDetails.cvv"
-                    placeholder="123"
-                    maxlength="3"
+                    placeholder="1234"
+                    maxlength="4"
                   />
                 </div>
               </div>
@@ -118,7 +118,7 @@
                   type="text" 
                   class="form-control"
                   v-model="cardDetails.name"
-                  placeholder="John Doe"
+                  placeholder="Ngoc Nam"
                 />
               </div>
             </div>
@@ -497,6 +497,15 @@ export default {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   margin-top: 1rem;
+}
+
+.card-form .form-control {
+  background-color: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.card-form .form-control::placeholder {
+  color: var(--text-muted) !important;
 }
 
 .order-summary {
