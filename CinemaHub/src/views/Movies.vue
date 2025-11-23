@@ -625,6 +625,10 @@ export default {
   color: var(--text-light);
 }
 
+.form-control::placeholder {
+  color: var(--text-muted) !important;
+}
+
 /* Movie Cards */
 .movie-card {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(16, 185, 129, 0.05));
