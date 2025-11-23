@@ -88,7 +88,7 @@
               Showing {{ paginatedMovies.length }} of {{ filteredMovies.length }} movies
             </span>
             <button
-              v-if="isAuthenticated"
+              v-if="isAuthenticated && currentUser && currentUser.role === 'admin'"
               @click="showAddMovieModal = true"
               class="btn btn-primary"
             >

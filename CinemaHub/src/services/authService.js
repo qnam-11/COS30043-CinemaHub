@@ -1,10 +1,10 @@
 // Authentication service that talks to the backend (Elysia)
 class AuthService {
-        constructor() {
-            // Elysia backend runs on port 3000 (app/index.ts)
-            this.BASE_URL = 'http://localhost:3000'
-            this.currentUser = this.loadUser()
-        }
+    constructor() {
+        // Elysia backend runs on port 3000 (app/index.ts)
+        this.BASE_URL = 'http://localhost:3000'
+        this.currentUser = this.loadUser()
+    }
 
     loadUser() {
         const userStr = localStorage.getItem('currentUser')
@@ -14,6 +14,8 @@ class AuthService {
     saveUser(user) {
         localStorage.setItem('currentUser', JSON.stringify(user))
         this.currentUser = user
+        // Dispatch custom event to notify components of auth change
+        window.dispatchEvent(new CustomEvent('auth-change'))
     }
 
     setTokens({ accessToken, refreshToken }) {
@@ -26,6 +28,8 @@ class AuthService {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('refreshToken')
         this.currentUser = null
+        // Dispatch custom event to notify components of auth change
+        window.dispatchEvent(new CustomEvent('auth-change'))
     }
 
     getAccessToken() {
@@ -121,6 +125,8 @@ class AuthService {
     }
 
     getCurrentUser() {
+        // Always read fresh from localStorage to ensure latest state
+        this.currentUser = this.loadUser()
         return this.currentUser
     }
 }

@@ -133,7 +133,6 @@
                 <button 
                   @click="viewTicket(booking)"
                   class="btn btn-sm btn-outline-primary"
-                  :disabled="isPastBooking(booking)"
                 >
                   <span class="mdi mdi-ticket"></span> View Ticket
                 </button>

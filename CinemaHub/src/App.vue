@@ -115,6 +115,10 @@ export default {
   },
   mounted() {
     this.updateUser()
+    // Listen for auth changes from authService
+    window.addEventListener('auth-change', () => {
+      this.updateUser()
+    })
     // Listen for storage changes (for logout in other tabs)
     window.addEventListener('storage', (e) => {
       if (e.key === 'currentUser' || e.key === 'accessToken') {
