@@ -7,9 +7,9 @@
           <div class="col-lg-6 col-md-12">
             <h1 class="hero-title">Welcome to CinemaHub</h1>
             <p class="hero-subtitle">
-              Discover and stream the best movies and TV shows from around the world. 
-              Your ultimate entertainment destination with a vast collection of content 
-              tailored just for you. Enjoy unlimited streaming with high-quality video 
+              Discover and watch the best movies from around the world. 
+              Your ultimate destination to get touch with a vast collection of content. 
+              Enjoy unlimited watching experience with high-quality video 
               and immersive experience.
             </p>
             <div class="hero-buttons">

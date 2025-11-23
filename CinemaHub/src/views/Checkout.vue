@@ -311,8 +311,8 @@ export default {
         const booking = bookingService.createBooking(cart.value)
         bookingCode.value = booking.bookingCode
 
-        // Update showtime seats
-        cinemaService.updateShowtimeSeats(cart.value.showtimeId, cart.value.seats.length)
+        // Mark seats as occupied for this showtime
+        cinemaService.markSeatsAsOccupied(cart.value.showtimeId, cart.value.seats)
 
         // Clear cart
         bookingService.clearCart()

@@ -219,16 +219,10 @@ export default {
       // Generate a realistic seat layout (10 rows, 12 seats each = 120 seats)
       const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
       const seatsPerRow = 12
-      const totalSeats = rows.length * seatsPerRow
-      const occupiedCount = totalSeats - showtime.value.availableSeats
 
-      // Randomly occupy seats
-      const occupiedSeats = new Set()
-      while (occupiedSeats.size < occupiedCount) {
-        const randomRow = Math.floor(Math.random() * rows.length)
-        const randomSeat = Math.floor(Math.random() * seatsPerRow) + 1
-        occupiedSeats.add(`${rows[randomRow]}-${randomSeat}`)
-      }
+      // Get consistent occupied seats for this showtime
+      const occupiedSeatsArray = cinemaService.getOccupiedSeats(showtime.value.id)
+      const occupiedSeats = new Set(occupiedSeatsArray)
 
       seatLayout.value = rows.map(row => ({
         row,
