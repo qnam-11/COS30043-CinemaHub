@@ -443,6 +443,7 @@ export default {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   border: 1px solid var(--color-border);
+  overflow-x: auto;
 }
 
 .screen-indicator {
@@ -452,7 +453,7 @@ export default {
 
 .screen {
   display: inline-block;
-  padding: 1rem 4rem;
+  padding: 1rem 16rem;
   background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
   border-radius: 50% 50% 0 0 / 20% 20% 0 0;
   color: white;
@@ -480,6 +481,7 @@ export default {
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
+  min-width: fit-content;
 }
 
 .seat-row {
@@ -665,27 +667,106 @@ export default {
 @media (max-width: 768px) {
   .seat-map-container {
     padding: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .screen {
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
+    padding: 0.75rem 8rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
   }
 
   .seat {
-    width: 32px;
-    height: 32px;
-    font-size: 0.65rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.6rem;
+  }
+
+  .seats {
+    gap: 0.4rem;
+  }
+
+  .seat-row {
+    gap: 0.4rem;
   }
 
   .seat-legend {
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .legend-item {
+    font-size: 0.85rem;
   }
 
   .row-label {
     width: 20px;
+    font-size: 0.8rem;
+  }
+
+  .booking-summary {
+    padding: 1.5rem;
+  }
+
+  .ticket-type-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .ticket-quantity {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .seat-map-container {
+    padding: 0.75rem;
+    margin: 0 -0.5rem;
+  }
+
+  .screen {
+    padding: 0.5rem 6rem;
     font-size: 0.85rem;
+  }
+
+  .seat {
+    width: 24px;
+    height: 24px;
+    font-size: 0.55rem;
+  }
+
+  .seats {
+    gap: 0.3rem;
+  }
+
+  .seat-row {
+    gap: 0.3rem;
+  }
+
+  .row-label {
+    width: 18px;
+    font-size: 0.75rem;
+  }
+
+  .selection-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .movie-info-bar {
+    padding: 1rem;
+  }
+
+  .movie-info-bar h4 {
+    font-size: 1.1rem;
+  }
+
+  .seat-chip {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 </style>

@@ -54,7 +54,7 @@
           <div class="checkout-section mt-4">
             <h4>Payment Method</h4>
             <p class="text-muted mb-3">
-              <small>🔒 This is a mock payment. No real charges will be made.</small>
+              <small>This is a mock payment. Transactions can not be made.</small>
             </p>
 
             <div class="payment-methods mb-4">
@@ -156,22 +156,16 @@
               :disabled="processing || !canCheckout"
             >
               <span v-if="processing">Processing...</span>
-              <span v-else>🎟️ Confirm & Pay ${{ grandTotal.toFixed(2) }}</span>
+              <span v-else>Confirm & Pay ${{ grandTotal.toFixed(2) }}</span>
             </button>
 
-            <div class="security-badges mt-4">
-              <div class="badge-item">🔒 Secure Payment</div>
-              <div class="badge-item">✓ Instant Confirmation</div>
-              <div class="badge-item">📱 Mobile Tickets</div>
+            <!-- Terms -->
+            <div class="terms-section mt-4">
+              <p class="text-muted small">
+                By completing this purchase, you agree to our Terms of Service and Privacy Policy. 
+                All sales are final. No refunds will be issued within 24 hours of showtime.
+              </p>
             </div>
-          </div>
-
-          <!-- Terms -->
-          <div class="terms-section mt-4">
-            <p class="text-muted small">
-              By completing this purchase, you agree to our Terms of Service and Privacy Policy. 
-              All sales are final. No refunds will be issued within 24 hours of showtime.
-            </p>
           </div>
         </div>
       </div>
@@ -226,9 +220,9 @@ export default {
     })
 
     const paymentMethods = [
-      { id: 'card', name: 'Credit/Debit Card', icon: '💳' },
-      { id: 'paypal', name: 'PayPal', icon: '🅿️' },
-      { id: 'gpay', name: 'Google Pay', icon: '📱' }
+      { id: 'card', name: 'Credit/Debit Card' },
+      { id: 'paypal', name: 'PayPal' },
+      { id: 'gpay', name: 'Google Pay' }
     ]
 
     const bookingFee = 2.50
@@ -403,6 +397,10 @@ export default {
   margin-top: 0;
 }
 
+.checkout-section p {
+  color: #d4deeb92 !important;
+}
+
 .movie-summary h5 {
   color: var(--vt-c-purple);
   font-size: 1.4rem;
@@ -551,10 +549,12 @@ export default {
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.terms-section {
-  padding: 1.5rem;
+.terms-section p {
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
+  border-top: 1px solid var(--color-border);
+  color: #d4deeb92 !important;
 }
 
 /* Success Modal */

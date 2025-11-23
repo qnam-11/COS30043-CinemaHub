@@ -614,6 +614,56 @@ export default {
   background: linear-gradient(180deg, var(--color-background) 0%, var(--color-background-soft) 100%);
 }
 
+/* Form Controls */
+.form-label {
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+  background-color: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: var(--text-light);
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: rgba(15, 23, 42, 0.8);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+  color: var(--text-light);
+  outline: none;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.form-select option {
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.form-select option:hover,
+.form-select option:checked {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.form-select option:focus {
+  outline: none;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+  color: white !important;
+}
+
 .movie-poster-large {
   width: 100%;
   border-radius: 16px;
