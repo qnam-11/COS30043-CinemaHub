@@ -403,7 +403,7 @@ export default {
 }
 
 .read-more {
-  color: var(--primary-color);
+  color: #462b83;
   font-weight: 600;
   padding: 0;
   text-decoration: none;
@@ -411,7 +411,7 @@ export default {
 }
 
 .read-more:hover {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   transform: translateX(5px);
 }
 
