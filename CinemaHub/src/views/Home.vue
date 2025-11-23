@@ -7,14 +7,14 @@
           <div class="col-lg-6 col-md-12">
             <h1 class="hero-title">Welcome to CinemaHub</h1>
             <p class="hero-subtitle">
-              Discover and watch the best movies from around the world. 
-              Your ultimate destination to get touch with a vast collection of content. 
-              Enjoy unlimited watching experience with high-quality video 
-              and immersive experience.
+              Book tickets for the latest movies at premium theaters near you. 
+              Your ultimate destination for hassle-free cinema ticket booking. 
+              Enjoy the magic of cinema with reserved seating, multiple formats, 
+              and the best movie-going experience.
             </p>
             <div class="hero-buttons">
               <router-link to="/movies" class="btn btn-primary btn-lg me-3">
-                <i class="bi bi-play-fill"></i> Start Watching
+                <i class="bi bi-play-fill"></i> Book Tickets
               </router-link>
               <router-link to="/about" class="btn btn-outline-light btn-lg">
                 Learn More
@@ -40,29 +40,29 @@
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
               <div class="feature-icon">🎬</div>
-              <h3>Vast Library</h3>
-              <p>Access thousands of movies and TV shows across all genres</p>
+              <h3>Wide Selection</h3>
+              <p>Book tickets for thousands of movies across all genres at multiple theaters</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">📺</div>
-              <h3>HD Quality</h3>
-              <p>Stream in stunning 4K and HD quality for the best experience</p>
+              <div class="feature-icon">🎫</div>
+              <h3>Easy Booking</h3>
+              <p>Reserve your seats in advance with our simple and secure booking system</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">🌐</div>
-              <h3>Multi-Device</h3>
-              <p>Watch anywhere, anytime on any device - mobile, tablet, or TV</p>
+              <div class="feature-icon">🪑</div>
+              <h3>Choose Your Seats</h3>
+              <p>Select your preferred seats from our interactive seat map</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">⭐</div>
-              <h3>Personalized</h3>
-              <p>Get recommendations based on your viewing preferences</p>
+              <div class="feature-icon">📱</div>
+              <h3>Digital Tickets</h3>
+              <p>Get instant e-tickets with QR codes on your mobile device</p>
             </div>
           </div>
         </div>
@@ -82,8 +82,8 @@
                 class="showcase-image img-fluid rounded"
               />
               <div class="showcase-overlay">
-                <h3>Immersive Experience</h3>
-                <p>Feel like you're in a real cinema</p>
+                <h3>Premium Theaters</h3>
+                <p>Book tickets at the best cinemas near you</p>
               </div>
             </router-link>
           </div>
@@ -95,8 +95,8 @@
                 class="showcase-image img-fluid rounded"
               />
               <div class="showcase-overlay">
-                <h3>Latest Releases</h3>
-                <p>Stay up-to-date with new content</p>
+                <h3>Latest Movies</h3>
+                <p>Book tickets for new releases and upcoming films</p>
               </div>
             </router-link>
           </div>
@@ -156,13 +156,17 @@ export default {
   border: none;
 }
 
+.hero-buttons .btn-outline-light {
+  border: 2.5px solid rgba(236, 234, 234, 0.959);
+}
+
 .hero-buttons .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
 }
 
 .hero-buttons .btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.959);
+  background-color: rgba(236, 234, 234, 0.959);
   box-shadow: 0 10px 25px rgba(218, 203, 249, 0.2);
   transform: translateY(-2px);
 }

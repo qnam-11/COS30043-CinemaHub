@@ -4,7 +4,7 @@
       <!-- Page Header -->
       <div class="page-header text-center mb-5">
         <h1 class="page-title">About CinemaHub</h1>
-        <p class="page-subtitle">Your Ultimate Cinema Streaming Experience</p>
+        <p class="page-subtitle">Your Ultimate Cinema Ticket Booking Platform</p>
       </div>
 
       <!-- About Content -->
@@ -13,20 +13,20 @@
           <div class="about-content">
             <h2 class="section-heading">Our Story</h2>
             <p>
-              CinemaHub was founded in 2020 with a simple yet powerful vision: to bring the magic of cinema 
-              to everyone, anywhere, at any time. We believe that great stories have the power to inspire, 
-              educate, and bring people together, regardless of geographical boundaries.
+              CinemaHub was founded in 2020 with a simple yet powerful vision: to make cinema ticket booking 
+              effortless and accessible to everyone. We believe that great movies deserve to be experienced 
+              on the big screen, and we're here to make that happen with just a few clicks.
             </p>
             <p>
-              Our platform offers a carefully curated collection of movies and TV shows from around the world, 
-              featuring everything from Hollywood blockbusters to independent films, classic cinema to the 
-              latest releases. With advanced streaming technology, personalized recommendations, and a 
-              user-friendly interface, we're committed to providing the best entertainment experience possible.
+              Our platform connects moviegoers with premium theaters across the country, offering a seamless 
+              booking experience from movie selection to seat reservation. Whether you're looking for the latest 
+              blockbuster, an indie gem, or a classic rerelease, CinemaHub brings you instant access to tickets 
+              at your favorite theaters with multiple formats including 2D, 3D, IMAX, and 4DX.
             </p>
             <p>
-              Today, CinemaHub serves over 50 million subscribers across 150 countries, offering content in 
-              multiple languages with features designed to make streaming accessible to everyone. Join us on 
-              this incredible journey as we continue to revolutionize how the world watches movies and TV shows.
+              Today, CinemaHub serves over 5 million movie enthusiasts across 150 cities, partnering with 
+              hundreds of theaters to offer the best selection of showtimes and seating options. Join us on 
+              this incredible journey as we continue to revolutionize how people book cinema tickets.
             </p>
           </div>
         </div>

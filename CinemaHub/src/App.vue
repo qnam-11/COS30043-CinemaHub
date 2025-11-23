@@ -72,7 +72,7 @@
     <footer class="footer bg-dark text-white py-4">
       <div class="container text-center">
         <p class="mb-0">&copy; 2025 CinemaHub. All rights reserved.</p>
-        <p class="small mb-0">Your ultimate cinema streaming experience</p>
+        <p class="small mb-0">Your ultimate cinema ticket booking platform</p>
       </div>
     </footer>
   </div>
