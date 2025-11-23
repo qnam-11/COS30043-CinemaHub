@@ -13,12 +13,12 @@
               and immersive experience.
             </p>
             <div class="hero-buttons">
-              <button class="btn btn-primary btn-lg me-3">
+              <router-link to="/movies" class="btn btn-primary btn-lg me-3">
                 <i class="bi bi-play-fill"></i> Start Watching
-              </button>
-              <button class="btn btn-outline-light btn-lg">
+              </router-link>
+              <router-link to="/about" class="btn btn-outline-light btn-lg">
                 Learn More
-              </button>
+              </router-link>
             </div>
           </div>
           <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
@@ -75,7 +75,7 @@
         <h2 class="section-title text-center mb-5">Experience Cinema Like Never Before</h2>
         <div class="row">
           <div class="col-md-6 col-sm-12 mb-4">
-            <div class="showcase-card">
+            <router-link to="/movies" class="showcase-card">
               <img 
                 src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=700&h=500&fit=crop" 
                 alt="Movie Theater" 
@@ -85,10 +85,10 @@
                 <h3>Immersive Experience</h3>
                 <p>Feel like you're in a real cinema</p>
               </div>
-            </div>
+            </router-link>
           </div>
           <div class="col-md-6 col-sm-12 mb-4">
-            <div class="showcase-card">
+            <router-link to="/news" class="showcase-card">
               <img 
                 src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=700&h=500&fit=crop" 
                 alt="Streaming Service" 
@@ -98,7 +98,7 @@
                 <h3>Latest Releases</h3>
                 <p>Stay up-to-date with new content</p>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -108,7 +108,10 @@
 
 <script>
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  mounted() {
+    window.scrollTo(0, 0)
+  }
 }
 </script>
 
@@ -230,6 +233,8 @@ export default {
   border-radius: 16px;
   cursor: pointer;
   height: 100%;
+  display: block;
+  text-decoration: none;
 }
 
 .showcase-image {

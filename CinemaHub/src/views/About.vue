@@ -217,6 +217,9 @@ export default {
         ? 'Experience tranquility with breathtaking mountain views'
         : 'Immerse yourself in the calming waves of the ocean'
     }
+  },
+  mounted() {
+    window.scrollTo(0, 0)
   }
 }
 </script>
