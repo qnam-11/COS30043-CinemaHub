@@ -392,11 +392,16 @@ export default {
     const canCancelBooking = (booking) => {
       if (booking.status !== 'confirmed') return false
       
-      const bookingDateTime = new Date(`${booking.date} ${booking.time}`)
-      const now = new Date()
-      const hoursDifference = (bookingDateTime - now) / (1000 * 60 * 60)
+      // Parse booking date and time
+      const bookingDate = new Date(booking.date)
+      const [hours, minutes] = booking.time.split(':')
+      bookingDate.setHours(parseInt(hours), parseInt(minutes), 0, 0)
       
-      return hoursDifference >= 24
+      const now = new Date()
+      const hoursDifference = (bookingDate - now) / (1000 * 60 * 60)
+      
+      // Allow cancellation if booking is at least 2 hours in the future
+      return hoursDifference >= 2
     }
 
     const formatDateTime = (date, time) => {
@@ -439,8 +444,13 @@ export default {
 
     const cancelBooking = (bookingId) => {
       if (confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
-        bookingService.cancelBooking(bookingId)
-        bookings.value = bookingService.getUserBookings(user.value.username)
+        try {
+          bookingService.cancelBooking(bookingId)
+          bookings.value = bookingService.getUserBookings(user.value.username)
+          alert('Booking cancelled successfully!')
+        } catch (error) {
+          alert('Failed to cancel booking: ' + error.message)
+        }
       }
     }
 
@@ -640,6 +650,10 @@ export default {
 .empty-state h4 {
   color: var(--color-heading);
   margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
 }
 
 .bookings-list {
@@ -928,6 +942,7 @@ export default {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 2px;
+  color: #1a1a1a;
 }
 
 .ticket-body {
@@ -991,7 +1006,7 @@ export default {
   display: inline-block;
   padding: 0.5rem 1rem;
   background: var(--vt-c-purple);
-  color: white;
+  color: #1a1a1a;
   border-radius: 6px;
   font-weight: 600;
 }
