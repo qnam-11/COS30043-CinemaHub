@@ -30,7 +30,7 @@
               <span class="badge bg-primary me-2">{{ movie.year }}</span>
               <span class="badge bg-secondary me-2">{{ movie.duration }}</span>
               <span class="badge bg-warning text-dark me-2">
-                <span class="me-1">⭐</span>{{ movie.rating }}
+                <span class="me-1 mdi mdi-star"></span>{{ movie.rating }}
               </span>
               <span 
                 v-for="genre in movie.genre" 
@@ -56,7 +56,7 @@
                 class="btn btn-like me-2"
                 :class="{ 'liked': isLiked }"
               >
-                <span class="me-1">{{ isLiked ? '❤️' : '🤍' }}</span>
+                <span class="me-1 mdi" :class="isLiked ? 'mdi-heart' : 'mdi-heart-outline'"></span>
                 {{ movie.likes }} Likes
               </button>
               <button 
@@ -64,7 +64,7 @@
                 @click="scrollToShowtimes" 
                 class="btn btn-primary"
               >
-                🎟️ Book Tickets
+                <span class="mdi mdi-ticket"></span> Book Tickets
               </button>
             </div>
 
@@ -73,7 +73,7 @@
               <div class="d-flex align-items-center mb-2">
                 <div class="average-rating me-3">
                   <span class="rating-number">{{ averageRating || movie.rating }}</span>
-                  <span class="rating-stars">{{ getStars(averageRating || movie.rating) }}</span>
+                  <span class="rating-stars" v-html="getStars(averageRating || movie.rating)"></span>
                 </div>
                 <div class="review-count">
                   {{ movieReviews.length }} {{ movieReviews.length === 1 ? 'Review' : 'Reviews' }}
@@ -212,7 +212,7 @@
                 <div>
                   <strong>{{ review.userFullName }}</strong>
                   <div class="review-rating">
-                    {{ getStars(review.rating) }}
+                    <span v-html="getStars(review.rating)"></span>
                     <span class="rating-number-small">{{ review.rating }}/5</span>
                   </div>
                 </div>
@@ -229,7 +229,7 @@
                   :class="{ 'active': hasVoted(review.id) }"
                   :disabled="!isAuthenticated"
                 >
-                  👍 Helpful ({{ review.helpful }})
+                  <span class="mdi mdi-thumb-up"></span> Helpful ({{ review.helpful }})
                 </button>
                 <div v-if="canEditReview(review)">
                   <button 
@@ -267,10 +267,9 @@
                 @click="reviewForm.rating = star"
                 @mouseover="hoverRating = star"
                 @mouseleave="hoverRating = 0"
-                class="star"
-                :class="{ 'filled': star <= (hoverRating || reviewForm.rating) }"
+                class="star mdi"
+                :class="star <= (hoverRating || reviewForm.rating) ? 'mdi-star filled' : 'mdi-star-outline'"
               >
-                ⭐
               </span>
             </div>
             <small class="text-muted">{{ reviewForm.rating }}/5</small>
@@ -468,12 +467,12 @@ export default {
     }
 
     const getStars = (rating) => {
-      if (!rating || rating < 0) return '☆☆☆☆☆'
+      if (!rating || rating < 0) return '<span class="mdi mdi-star-outline"></span>'.repeat(5)
       const safeRating = Math.min(Math.max(rating, 0), 5)
       const fullStars = Math.floor(safeRating)
       const halfStar = safeRating % 1 >= 0.5 ? 1 : 0
       const emptyStars = Math.max(0, 5 - fullStars - halfStar)
-      return '⭐'.repeat(fullStars) + (halfStar ? '⭐' : '') + '☆'.repeat(emptyStars)
+      return '<span class="mdi mdi-star"></span>'.repeat(fullStars) + (halfStar ? '<span class="mdi mdi-star-half-full"></span>' : '') + '<span class="mdi mdi-star-outline"></span>'.repeat(emptyStars)
     }
 
     const submitReview = async () => {

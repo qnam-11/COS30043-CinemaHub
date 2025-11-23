@@ -107,7 +107,7 @@
         </div>
 
         <div v-else-if="paginatedMovies.length === 0" class="no-results text-center py-5">
-          <div class="no-results-icon">🎬</div>
+          <div class="no-results-icon"><span class="mdi mdi-movie-open"></span></div>
           <h3>No movies found</h3>
           <p class="text-muted">Try adjusting your search filters</p>
         </div>
@@ -139,7 +139,7 @@
                 <div class="movie-meta">
                   <span class="movie-year">{{ movie.year }}</span>
                   <span class="movie-rating">
-                    <span class="rating-star">⭐</span>
+                    <span class="rating-star mdi mdi-star"></span>
                     {{ movie.rating }}
                   </span>
                 </div>
@@ -160,7 +160,7 @@
                     :aria-label="hasUserLiked(movie.id) ? 'Unlike movie' : 'Like movie'"
                     :disabled="!isAuthenticated"
                   >
-                    <span class="like-icon">{{ hasUserLiked(movie.id) ? '❤️' : '🤍' }}</span>
+                    <span class="like-icon mdi" :class="hasUserLiked(movie.id) ? 'mdi-heart' : 'mdi-heart-outline'"></span>
                     <span class="like-count">{{ movie.likes }}</span>
                   </button>
                   

@@ -5,7 +5,7 @@
         <div class="col-lg-6 col-md-8 col-sm-12">
           <div class="auth-card">
             <div class="text-center mb-4">
-              <div class="auth-icon">🎬</div>
+              <div class="auth-icon"><span class="mdi mdi-movie-open"></span></div>
               <h2 class="auth-title">Join CinemaHub</h2>
               <p class="auth-subtitle">Create your account to start streaming</p>
             </div>

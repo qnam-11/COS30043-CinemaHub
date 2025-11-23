@@ -19,22 +19,22 @@
       <!-- Stats Overview -->
       <div class="stats-grid mb-5">
         <div class="stat-card">
-          <div class="stat-icon">🎟️</div>
+          <div class="stat-icon"><span class="mdi mdi-ticket"></span></div>
           <div class="stat-value">{{ confirmedBookings.length }}</div>
           <div class="stat-label">Total Bookings</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">❤️</div>
+          <div class="stat-icon"><span class="mdi mdi-heart"></span></div>
           <div class="stat-value">{{ likedMoviesCount }}</div>
           <div class="stat-label">Liked Movies</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">⭐</div>
+          <div class="stat-icon"><span class="mdi mdi-star"></span></div>
           <div class="stat-value">{{ userReviewsCount }}</div>
           <div class="stat-label">Reviews Written</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><span class="mdi mdi-cash"></span></div>
           <div class="stat-value">${{ totalSpent.toFixed(0) }}</div>
           <div class="stat-label">Total Spent</div>
         </div>
@@ -49,7 +49,7 @@
           class="tab-button"
           :class="{ 'active': activeTab === tab.id }"
         >
-          {{ tab.icon }} {{ tab.label }}
+          <span class="mdi" :class="tab.icon"></span> {{ tab.label }}
         </button>
       </div>
 
@@ -66,7 +66,7 @@
         </div>
 
         <div v-if="filteredBookings.length === 0" class="empty-state">
-          <div class="empty-icon">🎬</div>
+          <div class="empty-icon"><span class="mdi mdi-movie-open"></span></div>
           <h4>No bookings found</h4>
           <p>Start booking tickets to watch amazing movies!</p>
           <router-link to="/movies" class="btn btn-primary">Browse Movies</router-link>
@@ -96,19 +96,19 @@
 
             <div class="booking-details">
               <div class="detail-row">
-                <span class="detail-label">🏢 Cinema:</span>
+                <span class="detail-label"><span class="mdi mdi-office-building"></span> Cinema:</span>
                 <span>{{ booking.cinemaName }}</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">📅 Date & Time:</span>
+                <span class="detail-label"><span class="mdi mdi-calendar"></span> Date & Time:</span>
                 <span>{{ formatDateTime(booking.date, booking.time) }}</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">🎞️ Format:</span>
+                <span class="detail-label"><span class="mdi mdi-video"></span> Format:</span>
                 <span>{{ booking.format }} • {{ booking.language }}</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">💺 Seats:</span>
+                <span class="detail-label"><span class="mdi mdi-seat"></span> Seats:</span>
                 <span class="seats-list">
                   <span 
                     v-for="seat in booking.seats" 
@@ -120,7 +120,7 @@
                 </span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">💰 Total:</span>
+                <span class="detail-label"><span class="mdi mdi-cash"></span> Total:</span>
                 <span class="price-large">${{ booking.totalPrice.toFixed(2) }}</span>
               </div>
             </div>
@@ -135,7 +135,7 @@
                   class="btn btn-sm btn-outline-primary"
                   :disabled="isPastBooking(booking)"
                 >
-                  🎟️ View Ticket
+                  <span class="mdi mdi-ticket"></span> View Ticket
                 </button>
                 <button 
                   v-if="canCancelBooking(booking)"
@@ -155,7 +155,7 @@
         <h3 class="mb-4">Liked Movies</h3>
 
         <div v-if="likedMovies.length === 0" class="empty-state">
-          <div class="empty-icon">❤️</div>
+          <div class="empty-icon"><span class="mdi mdi-heart"></span></div>
           <h4>No liked movies yet</h4>
           <p>Start liking movies to build your collection!</p>
           <router-link to="/movies" class="btn btn-primary">Browse Movies</router-link>
@@ -172,7 +172,7 @@
             <div class="movie-info">
               <h5>{{ movie.title }}</h5>
               <div class="movie-meta">
-                <span class="badge bg-warning text-dark">⭐ {{ movie.rating }}</span>
+                <span class="badge bg-warning text-dark"><span class="mdi mdi-star"></span> {{ movie.rating }}</span>
                 <span class="badge bg-secondary">{{ movie.year }}</span>
               </div>
               <p class="movie-genres">
@@ -188,7 +188,7 @@
         <h3 class="mb-4">My Reviews</h3>
 
         <div v-if="userReviews.length === 0" class="empty-state">
-          <div class="empty-icon">⭐</div>
+          <div class="empty-icon"><span class="mdi mdi-star"></span></div>
           <h4>No reviews yet</h4>
           <p>Share your thoughts about the movies you've watched!</p>
           <router-link to="/movies" class="btn btn-primary">Browse Movies</router-link>
@@ -206,7 +206,7 @@
                   {{ getMovieTitleByReview(review.movieId) }}
                 </h5>
                 <div class="review-rating">
-                  {{ getStars(review.rating) }}
+                  <span v-html="getStars(review.rating)"></span>
                   <span class="rating-number">{{ review.rating }}/5</span>
                 </div>
               </div>
@@ -217,7 +217,7 @@
             <h6 class="review-title">{{ review.title }}</h6>
             <p class="review-content">{{ review.content }}</p>
             <div class="review-footer">
-              <span class="helpful-count">👍 {{ review.helpful }} found helpful</span>
+              <span class="helpful-count"><span class="mdi mdi-thumb-up"></span> {{ review.helpful }} found helpful</span>
               <div>
                 <button @click="editReview(review)" class="btn btn-sm btn-outline-primary me-2">
                   Edit
@@ -239,7 +239,7 @@
         
         <div class="ticket-design">
           <div class="ticket-header">
-            <h3>🎬 CinemaHub</h3>
+            <h3><span class="mdi mdi-movie-open"></span> CinemaHub</h3>
             <p class="booking-code-large">{{ selectedTicket.bookingCode }}</p>
           </div>
 
@@ -305,7 +305,7 @@
         </div>
 
         <button @click="downloadTicket" class="btn btn-primary w-100 mt-3">
-          📥 Download Ticket
+          <span class="mdi mdi-download"></span> Download Ticket
         </button>
       </div>
     </div>
@@ -334,9 +334,9 @@ export default {
     const selectedTicket = ref(null)
 
     const tabs = [
-      { id: 'bookings', label: 'Bookings', icon: '🎟️' },
-      { id: 'liked', label: 'Liked Movies', icon: '❤️' },
-      { id: 'reviews', label: 'Reviews', icon: '⭐' }
+      { id: 'bookings', label: 'Bookings', icon: 'mdi-ticket' },
+      { id: 'liked', label: 'Liked Movies', icon: 'mdi-heart' },
+      { id: 'reviews', label: 'Reviews', icon: 'mdi-star' }
     ]
 
     const loadUserData = async () => {
@@ -464,7 +464,7 @@ export default {
     }
 
     const getStars = (rating) => {
-      return '⭐'.repeat(rating) + '☆'.repeat(5 - rating)
+      return '<span class="mdi mdi-star"></span>'.repeat(rating) + '<span class="mdi mdi-star-outline"></span>'.repeat(5 - rating)
     }
 
     const editReview = (review) => {

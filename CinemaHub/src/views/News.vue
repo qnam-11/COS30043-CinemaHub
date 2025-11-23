@@ -74,7 +74,7 @@
       <!-- News List -->
       <div class="news-list">
         <div v-if="paginatedNews.length === 0" class="no-results text-center py-5">
-          <div class="no-results-icon">📰</div>
+          <div class="no-results-icon"><span class="mdi mdi-newspaper"></span></div>
           <h3>No news articles found</h3>
           <p class="text-muted">Try adjusting your search filters</p>
         </div>

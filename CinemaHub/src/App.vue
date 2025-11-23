@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand d-flex align-items-center">
-          <span class="brand-icon">🎬</span>
+          <span class="brand-icon mdi mdi-movie-open"></span>
           <span class="brand-text">CinemaHub</span>
         </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -29,7 +29,7 @@
             <!-- User Menu -->
             <li v-if="isAuthenticated && currentUser" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle user-menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="user-icon">👤</span>
+                <span class="user-icon mdi mdi-account-circle"></span>
                 <span class="user-name">{{ currentUser.firstName }}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -40,12 +40,12 @@
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <router-link to="/profile" class="dropdown-item">
-                    <span class="me-2">👤</span> Profile
+                    <span class="me-2 mdi mdi-account"></span> Profile
                   </router-link>
                 </li>
                 <li>
                   <a class="dropdown-item" href="#" @click.prevent="handleLogout">
-                    <span class="me-2">🚪</span> Logout
+                    <span class="me-2 mdi mdi-logout"></span> Logout
                   </a>
                 </li>
               </ul>

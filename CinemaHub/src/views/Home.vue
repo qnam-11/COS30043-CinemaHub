@@ -39,28 +39,28 @@
         <div class="row g-4">
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">🎬</div>
+              <div class="feature-icon"><span class="mdi mdi-movie-open"></span></div>
               <h3>Wide Selection</h3>
               <p>Book tickets for thousands of movies across all genres at multiple theaters</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">🎫</div>
+              <div class="feature-icon"><span class="mdi mdi-ticket"></span></div>
               <h3>Easy Booking</h3>
               <p>Reserve your seats in advance with our simple and secure booking system</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">🪑</div>
+              <div class="feature-icon"><span class="mdi mdi-seat"></span></div>
               <h3>Choose Your Seats</h3>
               <p>Select your preferred seats from our interactive seat map</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="feature-card">
-              <div class="feature-icon">📱</div>
+              <div class="feature-icon"><span class="mdi mdi-cellphone"></span></div>
               <h3>Digital Tickets</h3>
               <p>Get instant e-tickets with QR codes on your mobile device</p>
             </div>

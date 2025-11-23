@@ -72,7 +72,7 @@
                   v-model="selectedPayment"
                 />
                 <label :for="method.id">
-                  <span class="payment-icon">{{ method.icon }}</span>
+                  <span class="payment-icon mdi" :class="method.icon"></span>
                   <span class="payment-name">{{ method.name }}</span>
                 </label>
               </div>
@@ -155,8 +155,8 @@
               class="btn btn-primary w-100 btn-lg mt-4"
               :disabled="processing || !canCheckout"
             >
-              <span v-if="processing">Processing...</span>
-              <span v-else>Confirm & Pay ${{ grandTotal.toFixed(2) }}</span>
+              <span v-if="processing"><span class="mdi mdi-loading mdi-spin"></span> Processing...</span>
+              <span v-else><span class="mdi mdi-ticket"></span> Confirm & Pay ${{ grandTotal.toFixed(2) }}</span>
             </button>
 
             <!-- Terms -->
@@ -174,7 +174,7 @@
     <!-- Success Modal -->
     <div v-if="showSuccessModal" class="modal-overlay" @click.self="closeSuccess">
       <div class="modal-content success-modal">
-        <div class="success-icon">✅</div>
+        <div class="success-icon"><span class="mdi mdi-check-circle"></span></div>
         <h3>Booking Confirmed!</h3>
         <p class="booking-code">Booking Code: <strong>{{ bookingCode }}</strong></p>
         <p class="text-muted">A confirmation email has been sent to your registered email address.</p>
@@ -220,9 +220,9 @@ export default {
     })
 
     const paymentMethods = [
-      { id: 'card', name: 'Credit/Debit Card' },
-      { id: 'paypal', name: 'PayPal' },
-      { id: 'gpay', name: 'Google Pay' }
+      { id: 'card', name: 'Credit/Debit Card', icon: 'mdi-credit-card' },
+      { id: 'paypal', name: 'PayPal', icon: 'mdi-paypal' },
+      { id: 'gpay', name: 'Google Pay', icon: 'mdi-google' }
     ]
 
     const bookingFee = 2.50
