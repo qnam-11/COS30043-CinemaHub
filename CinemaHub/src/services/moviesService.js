@@ -153,6 +153,12 @@ class MoviesService {
 
         localStorage.setItem('likedMovies', JSON.stringify(likedMovies))
         this.saveMovies()
+
+        // Dispatch custom event to notify other components
+        window.dispatchEvent(new CustomEvent('likedMoviesChanged', {
+            detail: { movieId: id, isLiked: userLikedIndex === -1 }
+        }))
+
         return movie
     }
 

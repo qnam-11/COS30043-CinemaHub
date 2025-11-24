@@ -397,11 +397,11 @@ export default {
       }
     }
 
-    const toggleLike = () => {
+    const toggleLike = async () => {
       const movieId = parseInt(route.params.id)
-      const result = moviesService.toggleLike(movieId)
+      const result = await moviesService.toggleLike(movieId)
       movie.value.likes = result.likes
-      isLiked.value = result.isLiked
+      isLiked.value = moviesService.hasUserLiked(movieId)
     }
 
     const getCinemaName = (cinemaId) => {

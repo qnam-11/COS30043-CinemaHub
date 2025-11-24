@@ -312,7 +312,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import authService from '../services/authService'
 import bookingService from '../services/bookingService'
@@ -350,13 +350,17 @@ export default {
       bookings.value.sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate))
 
       // Load liked movies
-      await moviesService.loadMovies()
-      const allMovies = moviesService.getAllMovies()
-      const likedMovieIds = JSON.parse(localStorage.getItem('likedMovies') || '[]')
-      likedMovies.value = allMovies.filter(movie => likedMovieIds.includes(movie.id))
+      await loadLikedMovies()
 
       // Load user reviews
       userReviews.value = reviewService.getReviews().filter(r => r.username === user.value.username)
+    }
+
+    const loadLikedMovies = async () => {
+      await moviesService.loadMovies()
+      const allMovies = await moviesService.getAllMovies()
+      const likedMovieIds = JSON.parse(localStorage.getItem('likedMovies') || '[]')
+      likedMovies.value = allMovies.filter(movie => likedMovieIds.includes(movie.id))
     }
 
     const confirmedBookings = computed(() => {
@@ -491,8 +495,31 @@ export default {
       }
     }
 
+    // Listen for storage changes (when likes are updated from other components/tabs)
+    const handleStorageChange = (event) => {
+      if (event.key === 'likedMovies') {
+        loadLikedMovies()
+      }
+    }
+
+    // Listen for custom event when likes change within the same tab
+    const handleLikesChange = () => {
+      loadLikedMovies()
+    }
+
     onMounted(() => {
       loadUserData()
+      
+      // Listen for storage events (from other tabs)
+      window.addEventListener('storage', handleStorageChange)
+      
+      // Listen for custom event (from same tab)
+      window.addEventListener('likedMoviesChanged', handleLikesChange)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('likedMoviesChanged', handleLikesChange)
     })
 
     return {
@@ -523,7 +550,8 @@ export default {
       getMovieTitleByReview,
       getStars,
       editReview,
-      deleteReview
+      deleteReview,
+      loadLikedMovies
     }
   }
 }
