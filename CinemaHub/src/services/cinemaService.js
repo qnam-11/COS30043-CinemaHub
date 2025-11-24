@@ -6,7 +6,8 @@ class CinemaService {
 
     async loadCinemas() {
         try {
-            const response = await fetch('/cinemas-data.json')
+            const baseUrl = import.meta.env.BASE_URL || '/'
+            const response = await fetch(`${baseUrl}cinemas-data.json`)
             this.cinemas = await response.json()
             return this.cinemas
         } catch (error) {
@@ -17,7 +18,8 @@ class CinemaService {
 
     async loadShowtimes() {
         try {
-            const response = await fetch('/showtimes-data.json')
+            const baseUrl = import.meta.env.BASE_URL || '/'
+            const response = await fetch(`${baseUrl}showtimes-data.json`)
             this.showtimes = await response.json()
             return this.showtimes
         } catch (error) {

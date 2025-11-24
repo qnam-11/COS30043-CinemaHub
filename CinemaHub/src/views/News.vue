@@ -209,7 +209,8 @@ export default {
   methods: {
     async loadNews() {
       try {
-        const response = await fetch('/news-data.json')
+        const baseUrl = import.meta.env.BASE_URL || '/'
+        const response = await fetch(`${baseUrl}news-data.json`)
         this.allNews = await response.json()
       } catch (error) {
         console.error('Error loading news:', error)
