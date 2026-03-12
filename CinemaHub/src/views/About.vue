@@ -200,10 +200,11 @@ export default {
       return ''
     },
     currentImage() {
+      const baseUrl = import.meta.env.BASE_URL || '/'
       if (this.selectedImage === 'mountain') {
-        return 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'
+        return `${baseUrl}images/mountain.jpg`
       } else if (this.selectedImage === 'ocean') {
-        return 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&h=600&fit=crop'
+        return `${baseUrl}images/beach.jpeg`
       }
       return ''
     },

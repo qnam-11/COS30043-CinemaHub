@@ -1,6 +1,4 @@
 /**
- * Real-time Seat Management Composable
- * 
  * This composable handles WebSocket connections for real-time seat synchronization
  * across multiple users. It manages:
  * - Connection lifecycle (connect/disconnect)
