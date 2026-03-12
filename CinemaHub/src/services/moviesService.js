@@ -19,8 +19,10 @@ class MoviesService {
 
         this.loadingPromise = (async () => {
             try {
-                console.log('Fetching movies from /movies-data.json...')
-                const response = await fetch('/movies-data.json')
+                const baseUrl = import.meta.env.BASE_URL || '/'
+                const url = `${baseUrl}movies-data.json`
+                console.log('Fetching movies from', url)
+                const response = await fetch(url)
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`)
